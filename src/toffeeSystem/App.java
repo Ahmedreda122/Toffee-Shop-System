@@ -1,5 +1,6 @@
 package toffeeSystem;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.sql.DriverManager;
 import java.util.logging.Level;
@@ -7,6 +8,7 @@ import java.util.logging.Logger;
 import javax.xml.validation.Validator;
 import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.sql.*;
+import java.io.Console;
 import toffeeSystem.*;
 
 public class App {
@@ -133,7 +135,6 @@ public class App {
             type = in.nextLine();
 
             while (true) {
-
                 System.out.print("<<<Enter your Password : \n>>>");
                 password = in.nextLine();
 
