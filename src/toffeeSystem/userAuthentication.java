@@ -3,20 +3,19 @@ package toffeeSystem;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.sql.Statement;
-import java.sql.DriverManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
 
-public class userAuthentication {
-    userAuthentication() {
+public class UserAuthentication {
+    UserAuthentication() {
     }
 
     public boolean verifyLogin(String username, String password) throws Exception {
+        Connection conn = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = conn.createStatement();
             String query = "SELECT * FROM persons";
             ResultSet set = stmt.executeQuery(query);
@@ -27,16 +26,26 @@ public class userAuthentication {
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close the connection when done
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
 
     public void signUp(String userN, String email, String password, String phoneNum, String address, String type)
             throws Exception {
+        Connection conn = null;
         System.out.println("done " + userN + " " + email + " " + password + " " + phoneNum + "" + address + " " + type);
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = conn.createStatement();
             // **to insert data in database
             String query = "insert into persons(name, email, password, phoneNum, address, type) values('" + userN
@@ -44,15 +53,24 @@ public class userAuthentication {
             stmt.executeUpdate(query);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Close the connection when done
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public static void sendOTP(String email) {
+    public String sendOTP(String email) throws Exception {
         // Generate a random OTP
         String otp = generateOTP();
 
         // Recipient's email ID
-        String to = email;
+        String to = "ahmadredaby122@gmail.com";
 
         // Sender's email ID and password
         String from = "loginapplication12@gmail.com";
@@ -97,9 +115,11 @@ public class userAuthentication {
             Transport.send(message);
 
             System.out.println("Email sent successfully!");
+
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+        return otp;
     }
 
     // Method to generate a random OTP
