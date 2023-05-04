@@ -55,12 +55,7 @@ public class Vaildate {
                 index = 1;
             } else if (type.equals("email")) {
                 index = 2;
-            } else if (type.equals("password")) {
-                index = 3;
-            } else if (type.equals("phoneNumber")) {
-                index = 4;
             }
-
             while (set.next()) {
                 if (set.getString(index).equals(data)) {
                     return true;

@@ -7,8 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
 
-public class UserAuthentication {
-    UserAuthentication() {
+public class userAuthentication {
+    userAuthentication() {
     }
 
     public boolean verifyLogin(String username, String password) throws Exception {
@@ -70,7 +70,7 @@ public class UserAuthentication {
         String otp = generateOTP();
 
         // Recipient's email ID
-        String to = "ahmadredaby122@gmail.com";
+        // String to = "ahmadredaby122@gmail.com";
 
         // Sender's email ID and password
         String from = "loginapplication12@gmail.com";
@@ -103,7 +103,7 @@ public class UserAuthentication {
             message.setFrom(new InternetAddress(from));
 
             // Set To field
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 
             // Set email subject
             message.setSubject("Your OTP for login");
@@ -114,7 +114,7 @@ public class UserAuthentication {
             // Send message
             Transport.send(message);
 
-            System.out.println("Email sent successfully!");
+            System.out.println("\t\t**** Email sent successfully! ****\n");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
