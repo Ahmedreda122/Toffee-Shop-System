@@ -17,31 +17,6 @@ public class App {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        // System.out.println("Hello, World!");
-        // try {
-        // Class.forName("org.sqlite.JDBC");
-        // Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-        // Statement stmt = conn.createStatement();
-        // ResultSet set = stmt.executeupdate(query);
-        // **to insert data in database
-        // String query = "insert into persons(name, email, password, phoneNum, address,
-        // type) values('ahmedReda', 'ahmalolyreda@gmail.com', 'ahmed123sd#@',
-        // '01123568974', 'ahmedredashahtabayoumi','admin')";
-        // **print table
-        // String query = "select * from persons";
-        // ResultSet set = stmt.executeQuery(query);
-        // while (set.next()) {
-        // System.out.println(set.getString(1) + " " + set.getString(2)
-        // + " " + set.getString(3));
-        // }
-        // } catch (ClassNotFoundException ex) {
-        // Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        // }
-        // Person p = new Person();
-        // System.out.println(authorize.verifyLogin("abdelrhmanSayed",
-        // "abdelrhamn123###"));
-        // authorize.signUp("abdelrhmanSayed", "abdelrhman1220@gmail.com",
-        // "abdelrhamn123###", "01017262334", "harem", "user");
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
         System.out.println("\t\t     <<!========== Welcome in Toffee System ==========!>>\n\n");
@@ -106,7 +81,7 @@ public class App {
                 System.out.print("\n<<<Enter your number phone : \n>>>");
                 phoneNumber = in.nextLine();
                 if (v.checkPhoneNumber(phoneNumber)) {
-                        break;
+                    break;
                 } else {
                     System.out.print(
                             "\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
@@ -120,19 +95,17 @@ public class App {
             while (true) {
                 System.out.print("\n<<<Enter your Password : \n>>>");
                 password = in.nextLine();
-                if (v.checkPassWord(password)){
-                     break;
-                    }
-                else {
+                if (v.checkPassWord(password)) {
+                    break;
+                } else {
                     System.out.print(
                             "\t\t**** Please, Enter a stronger password,\nTry a mix of letter, numbers(at least 5), and symbols(at laest 2)****\n");
                 }
             }
             authorize.signUp(name, email, password, phoneNumber, address, type);
-        } 
+        }
         // option 2
-        else if (choiceI.equals("2")) 
-        {
+        else if (choiceI.equals("2")) {
             String name, password;
             System.out.print("\n<<<Please, Enter your Username : \n>>>");
             name = in.nextLine();
@@ -143,13 +116,11 @@ public class App {
             }
         }
         // option 3
-        else if(choiceI.equals("3"))
-        {
+        else if (choiceI.equals("3")) {
             logUser.displayItems();
         }
         // option 4
-        else if(choiceI.equals("4"))
-        {
+        else if (choiceI.equals("4")) {
             // first login system
             // String name, password;
             System.out.print("\n<<<Please, Enter your Username : \n>>>");
@@ -159,44 +130,44 @@ public class App {
             String userId = authorize.verifyLogin(name, password);
             if (userId != null) {
                 System.out.println("you are in this system");
-            }else{
+            } else {
                 System.out.println("you are not in this system");
+                in.close();
                 return;
             }
             logUser.displayItems();
-            // to reinput(item) if is wrong 
-            while(true){
+            // to reinput(item) if is wrong
+            while (true) {
                 System.out.print("\n<<<Please, Enter item that you want from this items : \n>>>");
                 String item = in.nextLine();
-                float amountA = logUser.isExist(item ,userId);
-                // to reinput(amount) if is wrong 
-                while(true){
+                float amountA = logUser.isExist(item, userId);
+                // to reinput(amount) if is wrong
+                while (true) {
                     System.out.print("\n<<<Please, Enter The amount of this item : \n>>>");
                     float amount = in.nextFloat();
-                    if(amountA < amount)
-                    {
-                        System.out.print("\t\t**** This Amount not Available but that available amount is " + amountA + " ***\n");
+                    if (amountA < amount) {
+                        System.out.print("\t\t**** This Amount not Available but that available amount is " + amountA
+                                + " ***\n");
                         continue;
-                    }else{
+                    } else {
                         logUser.addItem(userId, item, amount);
                         break;
                     }
                 }
                 System.out.print("\n<==You want to add another item click (1) else click (2)?\n");
+                in.reset();
+                in.nextLine();
                 String _choice = in.nextLine();
-                if(_choice.equals("1"))
+                if (_choice.equals("1"))
                     continue;
-                else if(_choice.equals("2"))
+                else if (_choice.equals("2"))
                     break;
-                else{
+                else {
                     System.out.print("\t\t*** Invaild Input This item not . Please Try Again ***\n");
                     continue;
                 }
             }
-        }
-
-        else 
-        {
+        } else {
             System.out.print("\t\t*** Invalid input. Please Try Again ***\n");
         }
         in.close();
@@ -208,3 +179,29 @@ public class App {
 // (2) displaying a catalog of items loaded from somewhere,
 // (3) shopping for items and adding them to cart, and
 // (4) making an order to be paid upon delivery in cash.
+
+// System.out.println("Hello, World!");
+// try {
+// Class.forName("org.sqlite.JDBC");
+// Connection conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+// Statement stmt = conn.createStatement();
+// ResultSet set = stmt.executeupdate(query);
+// **to insert data in database
+// String query = "insert into persons(name, email, password, phoneNum, address,
+// type) values('ahmedReda', 'ahmalolyreda@gmail.com', 'ahmed123sd#@',
+// '01123568974', 'ahmedredashahtabayoumi','admin')";
+// **print table
+// String query = "select * from persons";
+// ResultSet set = stmt.executeQuery(query);
+// while (set.next()) {
+// System.out.println(set.getString(1) + " " + set.getString(2)
+// + " " + set.getString(3));
+// }
+// } catch (ClassNotFoundException ex) {
+// Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+// }
+// Person p = new Person();
+// System.out.println(authorize.verifyLogin("abdelrhmanSayed",
+// "abdelrhamn123###"));
+// authorize.signUp("abdelrhmanSayed", "abdelrhman1220@gmail.com",
+// "abdelrhamn123###", "01017262334", "harem", "user");
