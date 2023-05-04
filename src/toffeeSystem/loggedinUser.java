@@ -2,9 +2,15 @@ package toffeeSystem;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.mail.search.AddressStringTerm;
+import javax.mail.search.IntegerComparisonTerm;
+
 import java.sql.*;
 import toffeeSystem.*;
+import java.util.Vector;
 public class loggedinUser {
+    private Vector<String>cart = new Vector<String>();
     loggedinUser(){}
     public void displayItems()throws Exception
     {
@@ -39,6 +45,83 @@ public class loggedinUser {
             }
             }
         }
+        public float isExist(String itemId, String userId) throws Exception
+        {
+            float amount = 0;
+             Connection conn = null;
+         try {
+             Class.forName("org.sqlite.JDBC");
+             conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = conn.createStatement();
+            String query = "select * from Item";
+            ResultSet set = stmt.executeQuery(query);
+            boolean isExit = false;
+            while (set.next()) {
+                if(itemId.equals(set.getString(1))){
+                    cart.add(itemId);
+                    isExit = true;
+                    amount = Float.parseFloat(set.getString(4));
+                }
+            }
+            if(!isExit){
+                System.out.print("\t\t*** This item not found ***\n");
+                // return;
+            }
 
-    }
+            } catch (ClassNotFoundException ex) 
+            {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            finally {
+            // Close the connection when done
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                }
+                    catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.print("\n");
+            for(int i = 0; i < cart.size();i++){
+                System.out.print(cart.get(i) + " ");
+            }
+            return amount;
+        }
+        public void  addItem(String userID, String itemId, float amount) throws Exception{
+              Connection conn = null;
+         try {
+             Class.forName("org.sqlite.JDBC");
+             conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+            Statement stmt = conn.createStatement();
+            // add order with userID 
+            int userI = Integer.parseInt(userID);
+            String query = "insert into Orders(UserID) values (" + userI + ")";
+            stmt.executeUpdate(query);
+            // get last number order
+            String query2 = "SELECT MAX(OrderID) From Orders";
+            ResultSet setOrder =  stmt.executeQuery(query2);
+            int orderID = Integer.parseInt(setOrder.getString(1));
+            int itemI = Integer.parseInt(itemId);
+            String query3 = "INSERT INTO OrderContains Values(" + orderID + "," + itemI +","+ amount +")";
+            stmt.executeUpdate(query3);
+            } catch (ClassNotFoundException ex) 
+            {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            finally {
+            // Close the connection when done
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                }
+                    catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+}
+
 

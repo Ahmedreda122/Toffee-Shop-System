@@ -1,7 +1,8 @@
 -- SQLite
 SELECT * from Item;
--- SELECT * from persons;
--- SELECT * from OrderContains; 
+SELECT * from Orders;
+SELECT * from persons;
+SELECT * from OrderContains; 
 
 
 

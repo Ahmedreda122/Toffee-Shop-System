@@ -2,17 +2,19 @@ package toffeeSystem;
 
 import java.util.*;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.*;//
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
 
 public class userAuthentication {
+
     userAuthentication() {
     }
 
-    public boolean verifyLogin(String username, String password) throws Exception {
+    public String verifyLogin(String username, String password) throws Exception {
         Connection conn = null;
+        String id = null;
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -21,9 +23,10 @@ public class userAuthentication {
             ResultSet set = stmt.executeQuery(query);
             while (set.next()) {
                 if (set.getString(1).equals(username) && set.getString(3).equals(password)) {
-                    return true;
+                    id = set.getString(6);
                 }
             }
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -36,7 +39,7 @@ public class userAuthentication {
                 e.printStackTrace();
             }
         }
-        return false;
+        return id;
     }
 
     public void signUp(String userN, String email, String password, String phoneNum, String address, String type)
