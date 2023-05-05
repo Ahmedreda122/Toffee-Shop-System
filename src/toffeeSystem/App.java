@@ -19,6 +19,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner in = new Scanner(System.in);
         boolean isLoggedIn = false;
+        
         String userId = "";
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
@@ -126,8 +127,9 @@ public class App {
             else if (choiceI.equals("3")) {
                 logUser.displayItems();
             }
-            // option 4
+            // option 4 shopping cart
             else if (choiceI.equals("4")) {
+                boolean willAdd = true;
                 // first login system
                 // String name, password;
                 if (!isLoggedIn) {
@@ -137,11 +139,12 @@ public class App {
                     String password = in.nextLine();
                     userId = authorize.verifyLogin(name, password);
                     if (userId != null) {
-                        System.out.println("Welcome, "+ name +" In Toffee-Store");
+                        System.out.println("\n\t\t**** Welcome, "+ name +" In Toffee-Store ****\n");
                         logUser.cart.clear();
+                        logUser.reminderAmount.clear();
                         isLoggedIn = true;
                     } else {
-                        System.out.println("Invalid Username or Password.");
+                        System.out.println("\t\t ****Invalid Username or Password! Try again ***\n");
                         in.close();
                         return;
                     }
@@ -151,8 +154,18 @@ public class App {
                 while (true) {
                     System.out.print("\n<<<Please, Enter item that you want from this items: \n>>>");
                     String itemID = in.nextLine();
-                    float amountA = logUser.isExist(itemID);
+                    // amountA -> avilable amount in database
+                    // logUser -> this object type of loggedinUser
+
+                    // this take item that not take previously
+                    float amountA = 0;
+                    if(!logUser.cart.containsKey(itemID)){
+                        amountA = logUser.isExist(itemID);
+                    }else{
+                        amountA = logUser.reminderAmount.get(itemID);
+                    }
                     // To Reinput(amount) if is wrong
+                    // **this while for enter the  amount
                     while (true) {
                         System.out.print("\n<<<Please, Enter The amount of this item: \n>>>");
                         float amount = Float.parseFloat(in.nextLine());
@@ -163,20 +176,41 @@ public class App {
                             continue;
                         } else {
                             // Add this Item to the cart.
-                            logUser.cart.put(itemID, amount);
+                            if(!logUser.cart.containsKey(itemID)){
+                                logUser.cart.put(itemID, amount);
+                                // decrease entered amount from amount in database
+                                amountA -= amount;
+                                logUser.reminderAmount.put(itemID, amountA);
+                                System.out.print("\n\t\t**** first time ****\n");
+                            }else{
+                                System.out.print("\n\t\t amount user  : "+ amount +" \n");
+                                System.out.print("\n\t\t**** second time **** new amount in database : "+ amountA +" \n");
+                                amountA -= amount;
+                                System.out.print("\n\t\t new amount in database : "+ amountA +" \n");
+                                // this map for save what reminded of this item 
+                                logUser.reminderAmount.put(itemID, amountA);
+                            }
                             break;
                         }
                     }
-                    System.out.print("\n<==If you want to add another item click (1) else click (2)?\n");
-                    String _choice = in.nextLine();
-                    if (_choice.equals("1"))
-                        continue;
-                    else if (_choice.equals("2")) {
-                        logUser.clearCart2();
+                    // **this while for options(add another item or no)
+                    while (true){
+                        System.out.print("\n<==If you want to add another item click (1) else click (2)?\n");
+                        String _choice = in.nextLine();
+                        if(_choice.equals("1")){
+                            break;
+                        }
+                        else if (_choice.equals("2")) {
+                            willAdd = false;
+                            logUser.clearCart2();
+                            // logUser.reminderAmount.clear();
+                            break;
+                        } else {
+                            System.out.print("\t\t*** Invalid Input This item not Exist. Please Try Again ***\n");
+                        }
+                    }
+                    if(!willAdd){
                         break;
-                    } else {
-                        System.out.print("\t\t*** Invalid Input This item not . Please Try Again ***\n");
-                        continue;
                     }
                 }
             }

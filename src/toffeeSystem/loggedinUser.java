@@ -8,9 +8,18 @@ import java.sql.*;
 import toffeeSystem.*;
 import java.util.Vector;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class loggedinUser {
+    // this to put items that user choose it
     private Vector<String> cart2 = new Vector<String>();
+    // this to put id of item and amount that he want it to checkout
     public Map<String, Float> cart = new HashMap<String, Float>();
+    
+    // this to put id of item and amount that he want it to checkout
+    public Map<String, Float> reminderAmount = new HashMap<String, Float>();
+    
 
     loggedinUser() {
     }
@@ -52,6 +61,7 @@ public class loggedinUser {
     public float isExist(String itemId) throws Exception {
         float amount = 0;
         Connection conn = null;
+        
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -121,7 +131,7 @@ public class loggedinUser {
     public void makeOrder(String userID) throws Exception {
         Connection conn = null;
         int orderID = -1;
-
+        PreparedStatement statement = null;
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -159,7 +169,28 @@ public class loggedinUser {
                 ResultSet itemPrice = stmt.executeQuery(query4);
                 // Adding this Item Price * Its Amount to the Total Price of this Order
                 totalPrice += Float.parseFloat(itemPrice.getString(1)) * amount;
-            }
+                }
+            //**belong me
+            for (Map.Entry<String, Float> element : reminderAmount.entrySet()) {
+                // Getting Item ID from the cart
+                itemID = Integer.parseInt(element.getKey());
+                // Get the amount of this item from the cart
+                amount = element.getValue();
+                // ADD this Item (&its amount) to the Database
+                System.out.print("amount : "  + amount + "  itemid : " + itemID); 
+                String query5 = "UPDATE Item SET Amount = ? WHERE ItemID = ?";
+                statement = conn.prepareStatement(query5);
+                statement.setFloat(1, amount);
+                statement.setInt(2, itemID);
+                // String query5 = "INSERT INTO OrderContains Values(" + orderID + "," + itemID
+                //         + "," + amount + ")";
+                statement.executeUpdate();
+                // column -> amount
+                // stmt.setInt(2,3);
+                // System.out.println("Item Number: " + itemID + " Has Added to Your Order Number "
+                //         + orderID);
+                }   
+            
             System.out.println("The \u001B[32m\033[1mTotal Price\033[0m\u001B[0m Of your Order #" + orderID + " is "
                     + "\u001B[32m\033[1m" + totalPrice + " EGP.\033[0m\u001B[0m");
             cart.clear();
