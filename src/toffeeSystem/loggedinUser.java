@@ -176,21 +176,15 @@ public class loggedinUser {
                 itemID = Integer.parseInt(element.getKey());
                 // Get the amount of this item from the cart
                 amount = element.getValue();
-                // ADD this Item (&its amount) to the Database
-                System.out.print("amount : "  + amount + "  itemid : " + itemID); 
+                // this commends to update in database
                 String query5 = "UPDATE Item SET Amount = ? WHERE ItemID = ?";
                 statement = conn.prepareStatement(query5);
+                // replace ? number 1 with amount 
                 statement.setFloat(1, amount);
+                // replace ? number 2 with itemID
                 statement.setInt(2, itemID);
-                // String query5 = "INSERT INTO OrderContains Values(" + orderID + "," + itemID
-                //         + "," + amount + ")";
                 statement.executeUpdate();
-                // column -> amount
-                // stmt.setInt(2,3);
-                // System.out.println("Item Number: " + itemID + " Has Added to Your Order Number "
-                //         + orderID);
-                }   
-            
+            }  
             System.out.println("The \u001B[32m\033[1mTotal Price\033[0m\u001B[0m Of your Order #" + orderID + " is "
                     + "\u001B[32m\033[1m" + totalPrice + " EGP.\033[0m\u001B[0m");
             cart.clear();
