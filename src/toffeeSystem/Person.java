@@ -12,7 +12,7 @@ public class Person {
     private String type;
     private int id;
     Person(){
-        
+
     }
     Person(String userN,String pass, String ema, String phoneNum, String addr, String t){
         userName = userN;
@@ -21,7 +21,7 @@ public class Person {
         type = t;
         email = ema;
         password = pass;
-    }    
+    }
     public String getName(){
         return userName;
     }
