@@ -147,7 +147,6 @@ public class App {
                     }
                 }
                 logUser.displayItems();
-
                 // To Reinput(item) if is wrong
                 while (true) {
                     System.out.print("\n<<<Please, Enter item that you want from this items : \n>>>");
