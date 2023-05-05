@@ -84,8 +84,8 @@ public class loggedinUser {
             }
         }
         System.out.print("\n");
-        for (int i = 0; i < cart2.size(); i++) {
-            System.out.print(cart2.get(i) + " ");
+        for (String s : cart2) {
+            System.out.print(s + " ");
         }
         return amount;
     }
@@ -121,6 +121,7 @@ public class loggedinUser {
     public void makeOrder(String userID) throws Exception {
         Connection conn = null;
         int orderID = -1;
+
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -136,9 +137,11 @@ public class loggedinUser {
             String query2 = "SELECT MAX(OrderID) From Orders";
             ResultSet setOrder = stmt.executeQuery(query2);
             orderID = Integer.parseInt(setOrder.getString(1));
+
             int itemID;
             float amount;
             float totalPrice = 0.0f;
+
             for (Map.Entry<String, Float> element : cart.entrySet()) {
                 // Getting Item ID from the cart
                 itemID = Integer.parseInt(element.getKey());
