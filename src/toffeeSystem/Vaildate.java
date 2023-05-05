@@ -11,11 +11,7 @@ public class Vaildate {
     public boolean checkPassWord(String pass) {
         Pattern filter = Pattern.compile(
                 "^(?:[#-&@*$]{2,15}[a-zA-Z0-9]{5,20}|[a-zA-Z0-9]{5,20}[#-&@$]{2,15}|[#-&@*$]{2,15}[a-zA-Z0-9]{5,20}[#-&@*$]{2,15}|[a-zA-Z0-9]{5,20}[#-&@*$]{2,15}[a-zA-Z0-9]{5,20})$");
-        if (filter.matcher(pass).matches()) {
-            return true;
-        } else {
-            return false;
-        }
+        return filter.matcher(pass).matches();
     }
 
     // check vaildate email
@@ -24,21 +20,13 @@ public class Vaildate {
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:gmail)\\." +
                 "[a-zA-Z]{2,7}$");
-        if (filter.matcher(email).matches()) {
-            return true;
-        } else {
-            return false;
-        }
+        return filter.matcher(email).matches();
     }
 
     // check vaildate phone number
     public boolean checkPhoneNumber(String phoneNumber) {
         Pattern filter = Pattern.compile("(01)+(0|1|2|5){1}[0-9]{8}$");
-        if (filter.matcher(phoneNumber).matches()) {
-            return true;
-        } else {
-            return false;
-        }
+        return filter.matcher(phoneNumber).matches();
     }
 
     public boolean isUsed(String data, String type) throws Exception {

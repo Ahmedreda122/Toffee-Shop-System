@@ -25,38 +25,38 @@ public class App {
         loggedinUser logUser = new loggedinUser();
         userAuthentication authorize = new userAuthentication();
         while (true) {
-            System.out.println("\t\t     <<!========== Welcome in Toffee System ==========!>>\n\n");
+            System.out.println("\t\t     <<!========== Welcome in Toffee-Store ==========!>>\n\n");
             System.out.print("\t(1) Registration.\n");
             System.out.print("\t(2) Login.\n");
             System.out.print("\t(3) Displaying a catalog of items.\n");
             System.out.print("\t(4) Shopping for items and Adding them to cart.\n");
             System.out.print("\t(5) Making an order to be paid upon delivery in cash.\n");
             System.out.print("\t(6) Exit.\n");
-            System.out.print("\n<<<Enter your choiceI : \n>>>");
+            System.out.print("\n<<<Please, Enter your choice: \n>>>");
             String choiceI = in.nextLine();
-            System.out.print("\n");
+            System.out.println();
             if (choiceI.equals("1")) {
                 String name, password, email, address, phoneNumber, type;
                 Vaildate v = new Vaildate();
                 while (true) {
-                    System.out.print("\n<<<Enter your name : \n>>>");
+                    System.out.print("\n<<<Enter your name: \n>>>");
                     name = in.nextLine();
 
                     if (v.isUsed(name, "username")) {
-                        System.out.println("\t\t**** This Username is used already, Try another one. ****\n");
+                        System.out.println("\t\t**** This Username is already Used, Try another one. ****\n");
                     } else {
                         break;
                     }
                 }
                 while (true) {
-                    System.out.print("\n<<<Enter your email : \n>>>");
+                    System.out.print("\n<<<Enter your email: \n>>>");
                     email = in.nextLine();
                     if (v.checkEmail(email)) {
                         if (v.isUsed(email, "email")) {
-                            System.out.println("\t\t**** This E-mail is used already, Try another one. ****\n");
+                            System.out.println("\t\t**** This E-mail is already Used, Try another one. ****\n");
                         } else {
                             String actualOTP = authorize.sendOTP(email);
-                            System.out.print("<<<Please, Enter the OTP that sent you the email:\n>>>");
+                            System.out.print("<<<Please enter the OTP that was sent to your email:\n>>>");
                             String inputOTP = in.nextLine();
                             while (true) {
                                 if (actualOTP.equals(inputOTP)) {
@@ -67,7 +67,7 @@ public class App {
                                     String input = in.nextLine();
                                     if (input.equals("5")) {
                                         actualOTP = authorize.sendOTP(email);
-                                        System.out.print("\n<<<Please, Enter the OTP that sent you the email:\n>>>");
+                                        System.out.print("\n<<<Please enter the OTP that was sent to your email:\n>>>");
                                         inputOTP = in.nextLine();
                                     } else {
                                         inputOTP = input;
@@ -82,7 +82,7 @@ public class App {
                     }
                 }
                 while (true) {
-                    System.out.print("\n<<<Enter your number phone : \n>>>");
+                    System.out.print("\n<<<Enter your number phone: \n>>>");
                     phoneNumber = in.nextLine();
                     if (v.checkPhoneNumber(phoneNumber)) {
                         break;
@@ -91,10 +91,10 @@ public class App {
                                 "\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
                     }
                 }
-                System.out.print("\n<<<Enter your Address : \n>>>");
+                System.out.print("\n<<<Enter your Address: \n>>>");
                 address = in.nextLine();
                 // while(true){
-                System.out.print("\n<<<Enter your type(User Or Admin) : \n>>>");
+                System.out.print("\n<<<Enter your type(User Or Admin): \n>>>");
                 type = in.nextLine();
                 while (true) {
                     System.out.print("\n<<<Enter your Password : \n>>>");
@@ -103,7 +103,7 @@ public class App {
                         break;
                     } else {
                         System.out.print(
-                                "\t\t**** Please, Enter a stronger password,\nTry a mix of letter, numbers(at least 5), and symbols(at laest 2)****\n");
+                                "\t\t**** Please, Enter a stronger password,\nStart with a mix of letters and numbers(at least 5) then symbols(at least 2)****\n");
                     }
                 }
                 authorize.signUp(name, email, password, phoneNumber, address, type);
@@ -111,9 +111,9 @@ public class App {
             // option 2
             else if (choiceI.equals("2")) {
                 String name, password;
-                System.out.print("\n<<<Please, Enter your Username : \n>>>");
+                System.out.print("\n<<<Please, Enter your Username: \n>>>");
                 name = in.nextLine();
-                System.out.print("\n<<<Please, Enter your Password : \n>>>");
+                System.out.print("\n<<<Please, Enter your Password: \n>>>");
                 password = in.nextLine();
                 userId = authorize.verifyLogin(name, password);
                 if (userId != null) {
@@ -131,17 +131,17 @@ public class App {
                 // first login system
                 // String name, password;
                 if (!isLoggedIn) {
-                    System.out.print("\n<<<Please, Enter your Username : \n>>>");
+                    System.out.print("\n<<<Please, Enter your Username: \n>>>");
                     String name = in.nextLine();
                     System.out.print("\n<<<Please, Enter your Password : \n>>>");
                     String password = in.nextLine();
                     userId = authorize.verifyLogin(name, password);
                     if (userId != null) {
-                        System.out.println("you are in this system");
+                        System.out.println("Welcome, "+ name +" In Toffee-Store");
                         logUser.cart.clear();
                         isLoggedIn = true;
                     } else {
-                        System.out.println("you are not in this system");
+                        System.out.println("Invalid Username or Password.");
                         in.close();
                         return;
                     }
@@ -149,16 +149,16 @@ public class App {
                 logUser.displayItems();
                 // To Reinput(item) if is wrong
                 while (true) {
-                    System.out.print("\n<<<Please, Enter item that you want from this items : \n>>>");
+                    System.out.print("\n<<<Please, Enter item that you want from this items: \n>>>");
                     String itemID = in.nextLine();
                     float amountA = logUser.isExist(itemID);
                     // To Reinput(amount) if is wrong
                     while (true) {
-                        System.out.print("\n<<<Please, Enter The amount of this item : \n>>>");
+                        System.out.print("\n<<<Please, Enter The amount of this item: \n>>>");
                         float amount = Float.parseFloat(in.nextLine());
                         if (amountA < amount) {
                             System.out
-                                    .print("\t\t**** This Amount not Available but that available amount is " + amountA
+                                    .print("\t\t**** This Amount is not available but that available amount is " + amountA
                                             + " ***\n");
                             continue;
                         } else {
@@ -167,7 +167,7 @@ public class App {
                             break;
                         }
                     }
-                    System.out.print("\n<==You want to add another item click (1) else click (2)?\n");
+                    System.out.print("\n<==If you want to add another item click (1) else click (2)?\n");
                     String _choice = in.nextLine();
                     if (_choice.equals("1"))
                         continue;
@@ -175,7 +175,7 @@ public class App {
                         logUser.clearCart2();
                         break;
                     } else {
-                        System.out.print("\t\t*** Invaild Input This item not . Please Try Again ***\n");
+                        System.out.print("\t\t*** Invalid Input This item not . Please Try Again ***\n");
                         continue;
                     }
                 }
@@ -190,7 +190,7 @@ public class App {
                         logUser.makeOrder(userId);
                     }
                 } else {
-                    System.out.println("You must Log-in First and add items to your cart to Checkout");
+                    System.out.println("You must Log-in First and add items to your cart, to Checkout");
                 }
 
             } else if (choiceI.equals("6")) {

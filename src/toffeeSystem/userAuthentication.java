@@ -6,10 +6,29 @@ import javax.mail.internet.*;//
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
+import java.io.Console;
+
 
 public class userAuthentication {
 
-    userAuthentication() {
+    public String passwordReader() {
+
+        Console console = System.console();
+
+        // Read the password from the console
+        char[] passwordChars = console.readPassword("Enter password: ");
+
+        // Convert the password to a string
+        String password = new String(passwordChars);
+
+        // Print '*' instead of the actual password characters
+        for (int i = 0; i < password.length(); i++) {
+            System.out.print("*");
+        }
+
+        System.out.println();
+        System.out.println("Password entered: " + password);
+        return password;
     }
 
     public String verifyLogin(String username, String password) throws Exception {
@@ -45,7 +64,7 @@ public class userAuthentication {
     public void signUp(String userN, String email, String password, String phoneNum, String address, String type)
             throws Exception {
         Connection conn = null;
-        System.out.println("done " + userN + " " + email + " " + password + " " + phoneNum + "" + address + " " + type);
+        System.out.println("done " + userN + " " + email + " " + password + " " + phoneNum + " " + address + " " + type);
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:test.db");
