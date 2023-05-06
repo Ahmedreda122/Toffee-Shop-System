@@ -64,7 +64,7 @@ public class userAuthentication {
     public void signUp(String userN, String email, String password, String phoneNum, String address, String type)
             throws Exception {
         Connection conn = null;
-        System.out.println("done " + userN + " " + email + " " + password + " " + phoneNum + " " + address + " " + type);
+        System.out.println("Done!\n" + userN + " " + email + " " + password + " " + phoneNum + " " + address + " " + type);
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:test.db");

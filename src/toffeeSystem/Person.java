@@ -31,7 +31,7 @@ public class Person {
     public String getPhoneNumber(){
         return phoneNumber;
     }
-    public String address(){
+    public String getAddress(){
         return address;
     }
     public int getId(){

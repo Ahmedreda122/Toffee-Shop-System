@@ -11,11 +11,14 @@ import java.util.Vector;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.ArrayListMultimap;
 public class loggedinUser {
     // this to put items that user choose it
     private Vector<String> cart2 = new Vector<String>();
     // this to put id of item and amount that he want it to checkout
-    public Map<String, Float> cart = new HashMap<String, Float>();
+    Multimap<String, Float> cart = ArrayListMultimap.create();
+
     
     // this to put id of item and amount that he want it to checkout
     public Map<String, Float> reminderAmount = new HashMap<String, Float>();
@@ -147,29 +150,65 @@ public class loggedinUser {
             String query2 = "SELECT MAX(OrderID) From Orders";
             ResultSet setOrder = stmt.executeQuery(query2);
             orderID = Integer.parseInt(setOrder.getString(1));
-
             int itemID;
-            float amount;
+            float amount = 0.0f;
             float totalPrice = 0.0f;
+            HashSet<String> takenKeys = new HashSet<>();
 
-            for (Map.Entry<String, Float> element : cart.entrySet()) {
+            for (Map.Entry<String, Float> element : cart.entries()) {
                 // Getting Item ID from the cart
                 itemID = Integer.parseInt(element.getKey());
-                // Get the amount of this item from the cart
-                amount = element.getValue();
-                // ADD this Item (&its amount) to the Database
-                String query3 = "INSERT INTO OrderContains Values(" + orderID + "," + itemID
-                        + "," + amount + ")";
-                stmt.executeUpdate(query3);
+                String itemid = element.getKey();
 
-                System.out.println("Item Number: " + itemID + " Has Added to Your Order Number "
-                        + orderID);
+                // Get the amount of this item from the cart
+                Collection<Float> amounts = cart.get(itemid);
+                float total_amounts = 0;
+                // Loop through the collection of amounts for this item
+                if(!takenKeys.contains(itemid)){
+                for (Float amt : amounts) {
+                    total_amounts += amt;
+                }
+
+                takenKeys.add(itemid);
+                    // ADD this Item (& its amount) to the Database
+                String query3 = "INSERT INTO OrderContains Values(" + orderID + "," + itemID + "," + total_amounts + ")";
+                stmt.executeUpdate(query3);
                 // Get the Price Of this Item From the Database
                 String query4 = "SELECT Price FROM Item WHERE ItemID = " + itemID + ";";
                 ResultSet itemPrice = stmt.executeQuery(query4);
                 // Adding this Item Price * Its Amount to the Total Price of this Order
-                totalPrice += Float.parseFloat(itemPrice.getString(1)) * amount;
+                totalPrice += Float.parseFloat(itemPrice.getString(1)) * total_amounts;
+                System.out.println("Item Number: " + itemID + " Has Added to Your Order Number " + orderID);
+
+            }}
+
+
+            // Check if user has any vouchers that isn't used
+            String query6 = "SELECT VoucherID, Price, Code FROM Vouchers WHERE PersonID = (" + userId + ") AND isUsed = 0";
+            ResultSet voucherRS = stmt.executeQuery(query6);
+            if (voucherRS.next()) {
+
+                int voucherID = voucherRS.getInt("VoucherID");
+                float voucherPrice = voucherRS.getFloat("Price");
+                String voucherCode = voucherRS.getString("Code");
+
+                System.out.println("The \u001B[32m\033[1mTotal Price\033[0m\u001B[0m Of your Order Without any voucher #" + orderID + " is "
+                        + "\u001B[32m\033[1m" + totalPrice + " EGP.\033[0m\u001B[0m");
+                System.out.println("You have a voucher worth " + voucherPrice + " EGP with the code " + voucherCode + ". Would you like to use it? (Y/N)");
+                Scanner scanner = new Scanner(System.in);
+                String answer = scanner.next();
+                if (answer.equalsIgnoreCase("Y")) {
+                    // Mark voucher as used
+                    String query7 = "UPDATE Vouchers SET isUsed = 1 WHERE VoucherID = " + voucherID;
+                    stmt.executeUpdate(query7);
+                    // reduce voucher value from total price
+                    totalPrice -= voucherPrice;
+                    System.out.println("Voucher successfully applied.");
+                } else {
+                    System.out.println("Voucher not applied.");
                 }
+            }
+
             //**belong me
             for (Map.Entry<String, Float> element : reminderAmount.entrySet()) {
                 // Getting Item ID from the cart
