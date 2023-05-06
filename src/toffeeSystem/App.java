@@ -10,7 +10,6 @@ public class App {
   public static void main(String[] args) throws Exception {
     Scanner in = new Scanner(System.in);
     boolean isLoggedIn = false;
-
     String userId = "";
     String name = "";
     System.out.print("\033[H\033[2J");// to clean console
@@ -19,8 +18,10 @@ public class App {
     userAuthentication authorize = new userAuthentication();
     System.out.println("\t\t     <<!========== Welcome in Toffee-Store ==========!>>\n\n");
     while (true) {
-      if(!isLoggedIn && name == "") System.out.println("\t\t\t**** Welcome Visitor in Toffee-Store *****\n\n");
-      else System.out.println("\t\t\t***** Welcome " + name + " in Toffee-Store *****\n\n");
+      if (!isLoggedIn && name == "")
+        System.out.println("\t\t\t**** Welcome Visitor in Toffee-Store *****\n\n");
+      else
+        System.out.println("\t\t\t***** Welcome " + name + " in Toffee-Store *****\n\n");
       System.out.print("\t(1) Registration.\n");
       System.out.print("\t(2) Login.\n");
       System.out.print("\t(3) Displaying a catalog of items.\n");
@@ -105,7 +106,7 @@ public class App {
         System.out.flush();// to clean console
         System.out.println("\n\t\t**** Welcome, " + name + " In Toffee-Store ****\n");
       }
-      //** Option 2
+      // ** Option 2
       else if (choiceI.equals("2")) {
         String password;
         System.out.print("\n<<< Please, Enter your Username: \n>>>");
@@ -119,7 +120,7 @@ public class App {
           System.out.println("\n\t\t**** Welcome, " + name + " In Toffee-Store ****\n");
           isLoggedIn = true;
         }
-        Thread.sleep(5000);//to sleep console 
+        Thread.sleep(2000);// to sleep console
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
@@ -128,7 +129,6 @@ public class App {
         logUser.displayItems();
         System.out.print("<<<Press Enter to back to Home page : \n>>>");
         in.nextLine();
-        Thread.sleep(5000);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
@@ -228,11 +228,11 @@ public class App {
             break;
           }
         }
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
-      //** option 5
+      // ** option 5
       else if (choiceI.equals("5")) {
         if (isLoggedIn) {
           if (logUser.cart.isEmpty()) {
@@ -245,22 +245,22 @@ public class App {
             // Make an Order to the user and put it all the items in the cart.
             logUser.makeOrder(userId);
             while (true) {
-              System.out.print("Do you want to deliver the order to your existing address or a new address?");
-              System.out.print("1. Existing address");
-              System.out.print("2. New address");
-              System.out.print("*********************deliveryOption: ");
+              System.out.println("Do you want to deliver the order to your existing address or a new address?");
+              System.out.println("1. Existing address");
+              System.out.println("2. New address");
+              System.out.println("*********************deliveryOption: ");
               String deliveryOption = in.nextLine();
               if (deliveryOption.equals("1")) {
-                System.out.print("The order will be delivered to your existing address.");
+                System.out.println("The order will be delivered to your existing address.");
                 break;
               } else if (deliveryOption.equals("2")) {
-                System.out.print("Please Enter Your New Address: ");
+                System.out.println("Please Enter Your New Address: ");
                 String newAddress = in.nextLine();
-                System.out.print("The order will be delivered to the new address you provided.");
-                System.out.print(newAddress);
+                System.out.println("The order will be delivered to the new address you provided.");
+                System.out.println(newAddress);
                 break;
               } else {
-                System.out.print("Invalid input. Please Try Again.");
+                System.out.println("Invalid input. Please Try Again.");
               }
             }
           }
@@ -268,7 +268,6 @@ public class App {
           System.out.println("You must Log-in First and add items to your cart, to Checkout");
           System.out.println("Press Enter to back to Home page");
           in.nextLine();
-          Thread.sleep(5000);
           System.out.print("\033[H\033[2J");// to clean console
           System.out.flush();// to clean console
         }
