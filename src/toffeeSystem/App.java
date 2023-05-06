@@ -142,7 +142,7 @@ public class App {
           System.out.print("\n<<<Press Enter to back to Home page : \n>>>");
           in.nextLine();
         }
-        Thread.sleep(5000);//to sleep console 
+        Thread.sleep(2000);//to sleep console
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
@@ -152,7 +152,7 @@ public class App {
         logUser.displayItems();
         System.out.print("<<<Press Enter to back to Home page : \n>>>");
         in.nextLine();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
@@ -183,7 +183,7 @@ public class App {
             System.out.print("\n<<<Press Enter to back to Home page : \n>>>");
             in.nextLine();
             // in.close();
-             Thread.sleep(5000);//to sleep console 
+             Thread.sleep(2000);//to sleep console
             System.out.print("\033[H\033[2J");// to clean console
             System.out.flush();// to clean console
             continue;
@@ -324,7 +324,7 @@ public class App {
           System.out.print("\n<<<Press Enter to back to Home page : \n>>>");
           in.nextLine();
         }
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       } 
