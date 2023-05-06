@@ -11,13 +11,12 @@ import java.util.Vector;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.google.common.collect.Multimap;
-import com.google.common.collect.ArrayListMultimap;
+
 public class loggedinUser {
     // this to put items that user choose it
     private Vector<String> cart2 = new Vector<String>();
     // this to put id of item and amount that he want it to checkout
-    Multimap<String, Float> cart = ArrayListMultimap.create();
+    public Map<String, Float> cart = new HashMap<String, Float>();
 
     
     // this to put id of item and amount that he want it to checkout
@@ -155,7 +154,7 @@ public class loggedinUser {
             float totalPrice = 0.0f;
             HashSet<String> takenKeys = new HashSet<>();
 
-            for (Map.Entry<String, Float> element : cart.entries()) {
+            for (Map.Entry<String, Float> element : cart.entrySet()) {
                 // Getting Item ID from the cart
                 itemID = Integer.parseInt(element.getKey());
                 String itemid = element.getKey();
