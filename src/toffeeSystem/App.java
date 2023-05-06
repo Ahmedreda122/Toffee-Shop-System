@@ -10,7 +10,6 @@ public class App {
   public static void main(String[] args) throws Exception {
     Scanner in = new Scanner(System.in);
     boolean isLoggedIn = false;
-
     String userId = "";
     String name = "";
     System.out.print("\033[H\033[2J");// to clean console
@@ -142,7 +141,7 @@ public class App {
           System.out.print("\n<<<Press Enter to back to Home page : \n>>>");
           in.nextLine();
         }
-        Thread.sleep(5000);//to sleep console 
+        Thread.sleep(2000);// to sleep console
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
@@ -152,7 +151,6 @@ public class App {
         logUser.displayItems();
         System.out.print("<<<Press Enter to back to Home page : \n>>>");
         in.nextLine();
-        Thread.sleep(5000);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
@@ -273,7 +271,7 @@ public class App {
             break;
           }
         }
-        Thread.sleep(5000);
+        Thread.sleep(2000);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
