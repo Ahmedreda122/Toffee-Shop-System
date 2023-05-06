@@ -1,261 +1,273 @@
 package toffeeSystem;
 
 import java.util.Scanner;
-import toffeeSystem.*;
-import java.util.Arrays;
-import java.sql.DriverManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.validation.Validator;
-import java.nio.file.attribute.UserDefinedFileAttributeView;
-import java.sql.*;
-import java.io.Console;
 
 public class App {
-    /**
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {
-        Scanner in = new Scanner(System.in);
-        boolean isLoggedIn = false;
-        
-        String userId = "";
+  /**
+   * @param args
+   * @throws Exception
+   */
+  public static void main(String[] args) throws Exception {
+    Scanner in = new Scanner(System.in);
+    boolean isLoggedIn = false;
+
+    String userId = "";
+    System.out.print("\033[H\033[2J");// to clean console
+    System.out.flush();// to clean console
+    loggedinUser logUser = new loggedinUser();
+    userAuthentication authorize = new userAuthentication();
+    while (true) {
+      System.out.println("\t\t     <<!========== Welcome in Toffee-Store ==========!>>\n\n");
+      System.out.print("\t(1) Registration.\n");
+      System.out.print("\t(2) Login.\n");
+      System.out.print("\t(3) Displaying a catalog of items.\n");
+      System.out.print("\t(4) Shopping for items and Adding them to cart.\n");
+      System.out.print("\t(5) Making an order to be paid upon delivery in cash.\n");
+      System.out.print("\t(6) Exit.\n");
+      System.out.print("\n<<<Please, Enter your choice: \n>>>");
+      String choiceI = in.nextLine();
+      System.out.println();
+      if (choiceI.equals("1")) {
+        String name, password, email, address, phoneNumber, type;
+        Vaildate v = new Vaildate();
+        while (true) {
+          System.out.print("\n<<< Enter your name: \n>>>");
+          name = in.nextLine();
+
+          if (v.isUsed(name, "username")) {
+            System.out.println("\t\t**** This Username is already Used, Try another one. ****\n");
+          } else {
+            break;
+          }
+        }
+        while (true) {
+          System.out.print("\n<<< Enter your email: \n>>>");
+          email = in.nextLine();
+          if (v.checkEmail(email)) {
+            if (v.isUsed(email, "email")) {
+              System.out.println("\t\t**** This E-mail is already Used, Try another one. ****\n");
+            } else {
+              String actualOTP = authorize.sendOTP(email);
+              System.out.print("<<< Please enter the OTP that was sent to your email:\n>>>");
+              String inputOTP = in.nextLine();
+              while (true) {
+                if (actualOTP.equals(inputOTP)) {
+                  System.out.println("\t\t*** Your Email has been verified. ***\n");
+                  break;
+                } else {
+                  System.out.println("\n<<< Please Try Again,\nOR Enter '5' To resend the OTP:\n>>>");
+                  String input = in.nextLine();
+                  if (input.equals("5")) {
+                    actualOTP = authorize.sendOTP(email);
+                    System.out.print("\n<<< Please enter the OTP that was sent to your email:\n>>>");
+                    inputOTP = in.nextLine();
+                  } else {
+                    inputOTP = input;
+                  }
+                }
+              }
+              break;
+            }
+          } else {
+            System.out.print(
+                "\t\t*** Try again.Please enter email like this form (chars&numbers + @ + gmail.com) Or maybe its used ***\n");
+          }
+        }
+        while (true) {
+          System.out.print("\n<<< Enter your number phone: \n>>>");
+          phoneNumber = in.nextLine();
+          if (v.checkPhoneNumber(phoneNumber)) {
+            break;
+          } else {
+            System.out.print(
+                "\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
+          }
+        }
+        System.out.print("\n<<< Enter your Address: \n>>>");
+        address = in.nextLine();
+        System.out.print("\n<<< Enter your type(User Or Admin): \n>>>");
+        type = in.nextLine();
+        while (true) {
+          System.out.print("\n<<< Enter your Password: \n>>>");
+          password = in.nextLine();
+          if (v.checkPassWord(password)) {
+            break;
+          } else {
+            System.out.print(
+                "\t\t**** Please, Enter a stronger password,\nStart with a mix of letters and numbers(at least 5) then symbols(at least 2)****\n");
+          }
+        }
+        authorize.signUp(name, email, password, phoneNumber, address, type);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
-        loggedinUser logUser = new loggedinUser();
-        userAuthentication authorize = new userAuthentication();
-        while (true) {
-            System.out.println("\t\t     <<!========== Welcome in Toffee-Store ==========!>>\n\n");
-            System.out.print("\t(1) Registration.\n");
-            System.out.print("\t(2) Login.\n");
-            System.out.print("\t(3) Displaying a catalog of items.\n");
-            System.out.print("\t(4) Shopping for items and Adding them to cart.\n");
-            System.out.print("\t(5) Making an order to be paid upon delivery in cash.\n");
-            System.out.print("\t(6) Exit.\n");
-            System.out.print("\n<<<Please, Enter your choice: \n>>>");
-            String choiceI = in.nextLine();
-            System.out.println();
-            if (choiceI.equals("1")) {
-                String name, password, email, address, phoneNumber, type;
-                Vaildate v = new Vaildate();
-                while (true) {
-                    System.out.print("\n<<< Enter your name: \n>>>");
-                    name = in.nextLine();
-
-                    if (v.isUsed(name, "username")) {
-                        System.out.println("\t\t**** This Username is already Used, Try another one. ****\n");
-                    } else {
-                        break;
-                    }
-                }
-                while (true) {
-                    System.out.print("\n<<< Enter your email: \n>>>");
-                    email = in.nextLine();
-                    if (v.checkEmail(email)) {
-                        if (v.isUsed(email, "email")) {
-                            System.out.println("\t\t**** This E-mail is already Used, Try another one. ****\n");
-                        } else {
-                            String actualOTP = authorize.sendOTP(email);
-                            System.out.print("<<< Please enter the OTP that was sent to your email:\n>>>");
-                            String inputOTP = in.nextLine();
-                            while (true) {
-                                if (actualOTP.equals(inputOTP)) {
-                                    System.out.println("\t\t*** Your Email has been verified. ***\n");
-                                    break;
-                                } else {
-                                    System.out.println("\n<<< Please Try Again,\nOR Enter '5' To resend the OTP:\n>>>");
-                                    String input = in.nextLine();
-                                    if (input.equals("5")) {
-                                        actualOTP = authorize.sendOTP(email);
-                                        System.out.print("\n<<< Please enter the OTP that was sent to your email:\n>>>");
-                                        inputOTP = in.nextLine();
-                                    } else {
-                                        inputOTP = input;
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    } else {
-                        System.out.print(
-                                "\t\t*** Try again.Please enter email like this form (chars&numbers + @ + gmail.com) Or maybe its used ***\n");
-                    }
-                }
-                while (true) {
-                    System.out.print("\n<<< Enter your number phone: \n>>>");
-                    phoneNumber = in.nextLine();
-                    if (v.checkPhoneNumber(phoneNumber)) {
-                        break;
-                    } else {
-                        System.out.print(
-                                "\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
-                    }
-                }
-                System.out.print("\n<<< Enter your Address: \n>>>");
-                address = in.nextLine();
-                // while(true){
-                System.out.print("\n<<< Enter your type(User Or Admin): \n>>>");
-                type = in.nextLine();
-                while (true) {
-                    System.out.print("\n<<< Enter your Password: \n>>>");
-                    password = in.nextLine();
-                    if (v.checkPassWord(password)) {
-                        break;
-                    } else {
-                        System.out.print(
-                                "\t\t**** Please, Enter a stronger password,\nStart with a mix of letters and numbers(at least 5) then symbols(at least 2)****\n");
-                    }
-                }
-                authorize.signUp(name, email, password, phoneNumber, address, type);
-                System.out.println("\n\t\t**** Welcome, "+ name +" In Toffee-Store ****\n");
-            }
-            // option 2
-            else if (choiceI.equals("2")) {
-                String name, password;
-                System.out.print("\n<<< Please, Enter your Username: \n>>>");
-                name = in.nextLine();
-                System.out.print("\n<<< Please, Enter your Password: \n>>>");
-                password = in.nextLine();
-                userId = authorize.verifyLogin(name, password);
-                if (userId != null) {
-                    logUser.cart.clear();
-                    System.out.println("\n\t\t**** Welcome, "+ name +" In Toffee-Store ****\n");
-                    isLoggedIn = true;
-                }
-            }
-            // option 3
-            else if (choiceI.equals("3")) {
-                logUser.displayItems();
-            }
-            // option 4 shopping cart
-            else if (choiceI.equals("4")) {
-                boolean willAdd = true;
-                // first login system
-                // String name, password;
-                if (!isLoggedIn) {
-                    System.out.print("\n<<< Please, Enter your Username: \n>>>");
-                    String name = in.nextLine();
-                    System.out.print("\n<<< Please, Enter your Password: \n>>>");
-                    String password = in.nextLine();
-                    userId = authorize.verifyLogin(name, password);
-                    if (userId != null) {
-                        System.out.println("\n\t\t**** Welcome, "+ name +" In Toffee-Store ****\n");
-                        logUser.cart.clear();
-                        logUser.reminderAmount.clear();
-                        logUser.clearCart2();
-                        isLoggedIn = true;
-                    } else {
-                        System.out.println("\t\t **** Invalid Username or Password! Please, Try again ***\n");
-                        in.close();
-                        return;
-                    }
-                }
-                logUser.displayItems();
-                // To Reinput(item) if is wrong
-                while (true) {
-                    System.out.print("\n<<< Please, Enter item that you want from this items: \n>>>");
-                    String itemID = in.nextLine();
-                    // amountA -> avilable amount in database
-                    // logUser -> this object type of loggedinUser
-
-                    // this take item that not take previously
-                    float amountA = 0;
-                    if(!logUser.cart.containsKey(itemID)){
-                        amountA = logUser.isExist(itemID);
-                    }else{
-                        amountA = logUser.reminderAmount.get(itemID);
-                    }
-                    // To Reinput(amount) if is wrong
-                    // **this while for enter the  amount
-                    while (true) {
-                        System.out.print("\n<<< Please, Enter The amount of this item: \n>>>");
-                        float amount = Float.parseFloat(in.nextLine());
-                        if (amountA < amount) {
-                            System.out
-                                    .print("\t\t**** This Amount is not available but that available amount is " + amountA
-                                            + " ***\n");
-                            continue;
-                        } else {
-                            // Add this Item to the cart.
-                            if(!logUser.cart.containsKey(itemID)){
-                                logUser.cart.put(itemID, amount);
-                                // decrease entered amount from amount in database
-                                amountA -= amount;
-                                logUser.reminderAmount.put(itemID, amountA);
-                                System.out.print("\n\t\t**** first time ****\n");
-                            }else{
-                                logUser.cart.put(itemID, amount);
-                                System.out.print("\n\t\t amount user: "+ amount +" \n");
-                                System.out.print("\n\t\t**** second time **** new amount in database: "+ amountA +" \n");
-                                amountA -= amount;
-                                System.out.print("\n\t\t new amount in database: "+ amountA +" \n");
-                                // this map for save what reminded of this item 
-                                logUser.reminderAmount.put(itemID, amountA);
-                            }
-                            break;
-                        }
-                    }
-                    // **this while for options(add another item or no)
-                    while (true){
-                        System.out.print("\n<== If you want to add another item click (1) else click (2)?\n");
-                        String _choice = in.nextLine();
-                        if(_choice.equals("1")){
-                            break;
-                        }
-                        else if (_choice.equals("2")) {
-                            willAdd = false;
-//                            logUser.clearCart2();
-                            // logUser.reminderAmount.clear();
-                            break;
-                        } else {
-                            System.out.print("\t\t*** Invalid Input This item not Exist. Please Try Again ***\n");
-                        }
-                    }
-                    if(!willAdd){
-                        break;
-                    }
-                }
-            }
-            // option 5
-            else if (choiceI.equals("5")) {
-                if (isLoggedIn) {
-                    if (logUser.cart.isEmpty()) {
-                        System.out.println("Your cart is empty!");
-                    } else {
-                        // Make an Order to the user and put it all the items in the cart.
-                        logUser.makeOrder(userId);
-                        while (true){
-                        System.out.println("Do you want to deliver the order to your existing address or a new address?");
-                        System.out.println("1. Existing address");
-                        System.out.println("2. New address");
-                        String deliveryOption = in.nextLine();
-                        if (deliveryOption.equals("1")) {
-                             System.out.println("The order will be delivered to your existing address.");
-                             break;
-                        } else if (deliveryOption.equals("2")) {
-                            System.out.println("Please Enter Your New Address: ");
-                            String newAddress = in.next();
-                            System.out.println("The order will be delivered to the new address you provided.");
-                            System.out.println(newAddress);
-                            break;
-                        } else {
-                            System.out.println("Invalid input. Please Try Again.");
-                        }
-                        }
-                    }
-                } else {
-                    System.out.println("You must Log-in First and add items to your cart, to Checkout");
-                }
-
-            } else if (choiceI.equals("6")) {
-                break;
-            } else {
-                System.out.print("\t\t*** Invalid input. Please Try Again ***\n");
-            }
+        System.out.println("\n\t\t**** Welcome, " + name + " In Toffee-Store ****\n");
+      }
+      // Option 2
+      else if (choiceI.equals("2")) {
+        String name, password;
+        System.out.print("\n<<< Please, Enter your Username: \n>>>");
+        name = in.nextLine();
+        System.out.print("\n<<< Please, Enter your Password: \n>>>");
+        password = in.nextLine();
+        userId = authorize.verifyLogin(name, password);
+        if (userId != null) {
+          logUser.cart.clear();
+          logUser.clearCart2();
+          System.out.println("\n\t\t**** Welcome, " + name + " In Toffee-Store ****\n");
+          isLoggedIn = true;
         }
-        in.close();
+      }
+      // Option 3
+      else if (choiceI.equals("3")) {
+        logUser.displayItems();
+        System.out.println("Press Enter to back to Home page");
+        in.nextLine();
+        System.out.print("\033[H\033[2J");// to clean console
+        System.out.flush();// to clean console
+      }
+      // Option 4 shopping cart
+      else if (choiceI.equals("4")) {
+        boolean willAdd = true;
+        // First login to the system
+        // String name, password;
+        if (!isLoggedIn) {
+          System.out.print("\n<<< Please, Enter your Username: \n>>>");
+          String name = in.nextLine();
+          System.out.print("\n<<< Please, Enter your Password: \n>>>");
+          String password = in.nextLine();
+          userId = authorize.verifyLogin(name, password);
+          if (userId != null) {
+            System.out.println("\n\t\t**** Welcome, " + name + " In Toffee-Store ****\n");
+            logUser.cart.clear();
+            logUser.reminderAmount.clear();
+            logUser.clearCart2();
+            isLoggedIn = true;
+          } else {
+            System.out.println("\t\t **** Invalid Username or Password! Please, Try again ***\n");
+            in.close();
+            return;
+          }
+        }
+        logUser.displayItems();
+        // To Reinput(item) if is wrong
+        while (true) {
+          System.out.print("\n<<< Please, Enter item that you want from this items: \n>>>");
+          String itemID = in.nextLine();
+          // amountA -> avilable amount in database
+          // logUser -> this object type of loggedinUser
+
+          // This take item that not taken previously
+          float amountA = 0;
+          if (!logUser.cart.containsKey(itemID)) {
+            amountA = logUser.isExist(itemID);
+          } else {
+            amountA = logUser.reminderAmount.get(itemID);
+          }
+          // To Reinput(amount) if is wrong
+          // **this while for enter the amount
+          while (true) {
+            System.out.print("\n<<< Please, Enter The amount of this item: \n>>>");
+            float amount = Float.parseFloat(in.nextLine());
+            if (amountA < amount) {
+              System.out
+                  .print("\t\t**** This Amount is Not Available But The Available amount is " + amountA
+                      + " ***\n");
+              continue;
+            } else {
+              // Add this Item to the cart.
+              if (!logUser.cart.containsKey(itemID)) {
+                logUser.cart.put(itemID, amount);
+                // decrease entered amount from amount in database
+                amountA -= amount;
+                logUser.reminderAmount.put(itemID, amountA);
+                System.out.print("\n\t\t**** first time ****\n");
+              }
+              // f this item is already exist in the cart
+              else {
+                // By **Abdallah Hussein** Excellent // Appreciation by Ahmad Reda
+                /*
+                 * This item is already in the cart so
+                 * We increment its amount only
+                 */
+                float newAmount = logUser.cart.get(itemID) + amount;
+                // Updates the item amount
+                logUser.cart.replace(itemID, newAmount);
+                System.out.print("\n\t\t amount user: " + amount + " \n");
+                System.out.print("\n\t\t**** Second time **** New amount in database: " + amountA + " \n");
+                amountA -= amount;
+                System.out.print("\n\t\t New amount in database: " + amountA + " \n");
+                // this map for save what reminded of this item
+                logUser.reminderAmount.put(itemID, amountA);
+              }
+              break;
+            }
+          }
+          // **This while for options(add another item or no)
+          while (true) {
+            System.out.print("\n<== If you want to add another item click (1) else click (2)?\n");
+            String _choice = in.nextLine();
+            if (_choice.equals("1")) {
+              break;
+            } else if (_choice.equals("2")) {
+              willAdd = false;
+              // logUser.clearCart2();
+              // logUser.reminderAmount.clear();
+              break;
+            } else {
+              System.out.print("\t\t*** Invalid Input This item not Exist. Please Try Again ***\n");
+            }
+          }
+          if (!willAdd) {
+            break;
+          }
+        }
+      }
+      // option 5
+      else if (choiceI.equals("5")) {
+        if (isLoggedIn) {
+          if (logUser.cart.isEmpty()) {
+            System.out.println("Your cart is empty!");
+            System.out.println("Press Enter to back to Home page");
+            in.nextLine();
+            System.out.print("\033[H\033[2J");// to clean console
+            System.out.flush();// to clean console
+          } else {
+            // Make an Order to the user and put it all the items in the cart.
+            logUser.makeOrder(userId);
+            while (true) {
+              System.out.println("Do you want to deliver the order to your existing address or a new address?");
+              System.out.println("1. Existing address");
+              System.out.println("2. New address");
+              String deliveryOption = in.nextLine();
+              if (deliveryOption.equals("1")) {
+                System.out.println("The order will be delivered to your existing address.");
+                break;
+              } else if (deliveryOption.equals("2")) {
+                System.out.println("Please Enter Your New Address: ");
+                String newAddress = in.next();
+                System.out.println("The order will be delivered to the new address you provided.");
+                System.out.println(newAddress);
+                break;
+              } else {
+                System.out.println("Invalid input. Please Try Again.");
+              }
+            }
+          }
+        } else {
+          System.out.println("You must Log-in First and add items to your cart, to Checkout");
+          System.out.println("Press Enter to back to Home page");
+          in.nextLine();
+          System.out.print("\033[H\033[2J");// to clean console
+          System.out.flush();// to clean console
+        }
+      } else if (choiceI.equals("6")) {
+        break;
+      } else {
+        System.out.print("\t\t*** Invalid input. Please Try Again ***\n");
+      }
     }
+    in.close();
+  }
 }
 
 // (1) registering a user and login,
