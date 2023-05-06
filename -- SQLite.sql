@@ -3,7 +3,7 @@ SELECT * from Item;
 SELECT * from Orders;
 SELECT * from persons;
 SELECT * from OrderContains; 
-
+SELECT * from Vouchers;
 
 
 

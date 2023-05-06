@@ -158,7 +158,7 @@ public class loggedinUser {
                         + ". Would you like to use it? (Y/N)");
                 Scanner scanner = new Scanner(System.in);
                 String answer = scanner.nextLine();
-
+                scanner.reset();
                 if (answer.equalsIgnoreCase("Y")) {
                     // Mark voucher as used
                     String query7 = "UPDATE Vouchers SET isUsed = 1 WHERE VoucherID = " + voucherID;

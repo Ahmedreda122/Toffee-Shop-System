@@ -10,7 +10,7 @@ public class Voucher {
         this.used = false;
     }
 
-    public String getCode() {
+    public String getCode(){
         return code;
     }
 
