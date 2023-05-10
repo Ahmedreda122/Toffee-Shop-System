@@ -4,8 +4,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.mail.Message;
-
 import java.sql.*;
 import toffeeSystem.*;
 import java.util.Vector;
@@ -171,10 +169,16 @@ public class loggedinUser {
                         statement.setFloat(1, (totalPrice * -1));
                         // replace ? number 2 with userId
                         statement.setInt(2, userId);
-                        // replace ? number 3 with a random code
+                        // Generate Random Code
                         Random random = new Random();
-                        String code = random.ints(8).toString();
-                        statement.setString(3, code);
+                        int voucherLen = 6;
+                        String numbers = "0@1#2$3%4&5689!";
+                        char[] code = new char[voucherLen];
+                        for (int i = 0; i < voucherLen; i++) {
+                            code[i] = numbers.charAt(random.nextInt(numbers.length()));
+                        }
+                        // replace ? number 3 with a random code
+                        statement.setString(3, (new String(code)));
                         statement.executeUpdate();
                         message = "A New Voucher has assigned to your account with a following value: "
                                 + -totalPrice + "\n";

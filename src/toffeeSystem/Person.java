@@ -1,8 +1,5 @@
 package toffeeSystem;
-import java.sql.DriverManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.sql.*;
+
 public class Person {
     private String userName;
     private String email;
@@ -11,10 +8,12 @@ public class Person {
     private String address;
     private String type;
     private int id;
-    Person(){
+
+    Person() {
 
     }
-    Person(String userN,String pass, String ema, String phoneNum, String addr, String t){
+
+    Person(String userN, String pass, String ema, String phoneNum, String addr, String t) {
         userName = userN;
         phoneNumber = phoneNum;
         address = addr;
@@ -22,22 +21,28 @@ public class Person {
         email = ema;
         password = pass;
     }
-    public String getName(){
+
+    public String getName() {
         return userName;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
-    public String getPhoneNumber(){
+
+    public String getPhoneNumber() {
         return phoneNumber;
     }
-    public String getAddress(){
+
+    public String getAddress() {
         return address;
     }
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    public String getType(){
+
+    public String getType() {
         return type;
     }
 }

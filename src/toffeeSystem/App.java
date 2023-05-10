@@ -22,6 +22,7 @@ public class App {
         System.out.println("\t\t\t**** Welcome Visitor in Toffee-Store *****\n\n");
       else
         System.out.println("\t\t\t***** Welcome " + name + " in Toffee-Store *****\n\n");
+
       System.out.print("\t(1) Registration.\n");
       System.out.print("\t(2) Login.\n");
       System.out.print("\t(3) Displaying a catalog of items.\n");
@@ -228,7 +229,7 @@ public class App {
             break;
           }
         }
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
@@ -248,7 +249,6 @@ public class App {
               System.out.println("Do you want to deliver the order to your existing address or a new address?");
               System.out.println("1. Existing address");
               System.out.println("2. New address");
-              System.out.println("*********************deliveryOption: ");
               String deliveryOption = in.nextLine();
               if (deliveryOption.equals("1")) {
                 System.out.println("The order will be delivered to your existing address.");
