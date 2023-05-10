@@ -91,10 +91,10 @@ public class loggedinUser {
                 e.printStackTrace();
             }
         }
-        System.out.print("\n");
-        for (String s : cart2) {
-            System.out.print(s + " ");
-        }
+        // System.out.print("\n");
+        // for (String s : cart2) {
+        //     System.out.print(s + " ");
+        // }
         return amount;
     }
 
@@ -102,7 +102,8 @@ public class loggedinUser {
         Connection conn = null;
         int orderID = -1;
         PreparedStatement statement = null;
-        try {
+        try 
+        {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:test.db");
             // SQL Statement Object to hold and execute SQL queries
@@ -121,7 +122,8 @@ public class loggedinUser {
             float amount = 0.0f;
             float totalPrice = 0.0f;
 
-            for (Map.Entry<String, Float> element : cart.entrySet()) {
+            for (Map.Entry<String, Float> element : cart.entrySet()) 
+            {
                 // Getting Item ID from the cart
                 itemID = Integer.parseInt(element.getKey());
                 // Get the amount of this item from the cart
@@ -134,7 +136,7 @@ public class loggedinUser {
                 ResultSet itemPrice = stmt.executeQuery(query4);
                 // Adding this Item Price * Its Amount to the Total Price of this Order
                 totalPrice += Float.parseFloat(itemPrice.getString(1)) * amount;
-                System.out.println("Item Number: " + itemID + " Has Added to Your Order Number " + orderID);
+                System.out.print("\n=>Item Number: " + itemID + " And Amount that you take it is : " + amount + " Has Added to Your Order Number " + orderID);
             }
 
             // Check if user has any vouchers that isn't used
@@ -149,13 +151,14 @@ public class loggedinUser {
                 String voucherCode = voucherRS.getString("Code");
 
                 System.out
-                        .println("The \u001B[32m\033[1mTotal Price\033[0m\u001B[0m Of your Order Without any voucher #"
+                        .print("\n\n\t\t**** The \u001B[32m\033[1mTotal Price\033[0m\u001B[0m Of your Order Without any voucher #"
                                 + orderID + " is "
-                                + "\u001B[32m\033[1m" + totalPrice + " EGP.\033[0m\u001B[0m");
-                System.out.println("You have a voucher worth " + voucherPrice + " EGP with the code " + voucherCode
-                        + ". Would you like to use it? (Y/N)");
+                                + "\u001B[32m\033[1m" + totalPrice + " EGP.\033[0m\u001B[0m ****\n\n");
+                System.out.print("\n<<<You have a voucher worth " + voucherPrice + " EGP with the code " + voucherCode
+                        + ". Would you like to use it? (Y/N)\n>>>");
                 Scanner scanner = new Scanner(System.in);
                 String answer = scanner.nextLine();
+                scanner.reset();
                 if (answer.equalsIgnoreCase("Y")) {
                     // Mark voucher as used
                     String query7 = "UPDATE Vouchers SET isUsed = 1 WHERE VoucherID = " + voucherID;
@@ -184,14 +187,18 @@ public class loggedinUser {
                                 + -totalPrice + "\n";
                         totalPrice = 0;
                     }
-                    System.out.println("Voucher successfully applied.");
-                } else {
-                    System.out.println("Voucher not applied.");
+                    System.out.print("\n\t\t\t**** Voucher successfully applied. ****\n\n");
+                } 
+                else 
+                {
+                    System.out.print("\n\t\t\t**** Voucher not applied. ****\n\n");
                 }
+                // scanner.close();
             }
 
-            // **belong me
-            for (Map.Entry<String, Float> element : reminderAmount.entrySet()) {
+            // **this is remind amount of items that users take from it
+            for (Map.Entry<String, Float> element : reminderAmount.entrySet()) 
+            {
                 // Getting Item ID from the cart
                 itemID = Integer.parseInt(element.getKey());
                 // Get the amount of this item from the cart
@@ -205,24 +212,31 @@ public class loggedinUser {
                 statement.setInt(2, itemID);
                 statement.executeUpdate();
             }
-            System.out.println("The \u001B[32m\033[1mTotal Price\033[0m\u001B[0m Of your Order #" + orderID + " is "
-                    + "\u001B[32m\033[1m" + totalPrice + " EGP.\033[0m\u001B[0m");
+            System.out.println("\t\t**** The \u001B[32m\033[1mTotal Price\033[0m\u001B[0m Of your Order #" + orderID + " is "
+                    + "\u001B[32m\033[1m" + totalPrice + " EGP.\033[0m\u001B[0m ****\n\n");
             System.out.print(message);
             cart.clear();
-        } catch (ClassNotFoundException ex) {
+        } 
+        catch (ClassNotFoundException ex) 
+        {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        } 
+        finally 
+        {
             // Close the connection when done
-            try {
-                if (conn != null) {
+            try 
+            {
+                if (conn != null)
+                 {
                     conn.close();
                 }
-            } catch (SQLException e) {
+            } 
+            catch (SQLException e) 
+            {
                 e.printStackTrace();
             }
         }
     }
-
     void clearCart2() {
         cart2.clear();
     }
