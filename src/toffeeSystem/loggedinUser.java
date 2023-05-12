@@ -12,7 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * The `loggedinUser` class represents a logged-in user in an online shopping system.
+ * The `loggedinUser` class represents a logged-in user in an online shopping
+ * system.
  */
 public class loggedinUser {
   /**
@@ -20,12 +21,14 @@ public class loggedinUser {
    */
   private Vector<String> cart2 = new Vector<String>();
   /**
-   * A Map that represents a shopping cart that stores the ID of each item and the amount the user wants to checkout.
+   * A Map that represents a shopping cart that stores the ID of each item and the
+   * amount the user wants to checkout.
    */
   public Map<String, Float> cart = new HashMap<String, Float>();
 
   /**
-   * A map that stores the remaining amount of items in the user's cart after they have checked out some of them.
+   * A map that stores the remaining amount of items in the user's cart after they
+   * have checked out some of them.
    */
   public Map<String, Float> reminderAmount = new HashMap<String, Float>();
 
@@ -37,7 +40,9 @@ public class loggedinUser {
 
   /**
    * Displays all items in the database.
-   * @throws Exception if there is an error while connecting to the database or executing the query
+   * 
+   * @throws Exception if there is an error while connecting to the database or
+   *                   executing the query
    */
   public void displayItems() throws Exception {
     // public static final String re = "\u001B[31m";
@@ -74,10 +79,14 @@ public class loggedinUser {
   }
 
   /**
-   * Searches for an item with the given ID in the database and adds it to the cart if it exists.
+   * Searches for an item with the given ID in the database and adds it to the
+   * cart if it exists.
+   * 
    * @param itemId the ID of the item to search for
-   * @return the amount of the item found, or 0 if the item does not exist in the database
-   * @throws Exception if there is an error connecting to the database or executing the query
+   * @return the amount of the item found, or 0 if the item does not exist in the
+   *         database
+   * @throws Exception if there is an error connecting to the database or
+   *                   executing the query
    */
   public float isExist(String itemId) throws Exception {
     float amount = 0;
@@ -122,12 +131,17 @@ public class loggedinUser {
   }
 
   /**
-   * Creates a new order in the database for the given user and adds the items in the cart to the order.
-   * Calculates the total price of the order based on the items' prices and amounts.
-   * If the user has any vouchers, applies the applicable voucher to the total price.
+   * Creates a new order in the database for the given user and adds the items in
+   * the cart to the order.
+   * Calculates the total price of the order based on the items' prices and
+   * amounts.
+   * If the user has any vouchers, applies the applicable voucher to the total
+   * price.
    * Updates the amount of each item in the database and clears the cart.
+   * 
    * @param userID the ID of the user who is making the order
-   * @throws Exception if there is an error connecting to the database or executing the query
+   * @throws Exception if there is an error connecting to the database or
+   *                   executing the query
    */
   public void makeOrder(String userID) throws Exception {
     Connection conn = null;
@@ -205,14 +219,21 @@ public class loggedinUser {
   }
 
   /**
-   * Uses a voucher, if available, to reduce the total price of the cart for the user.
-   * It first checks if the user has any unused vouchers and asks the user to use it or not.
-   * If the user chooses to use the voucher, it marks the voucher as used in the database and reduces the voucher value from the total price of the cart.
-   * If the total price is less than the voucher, it generates a new voucher with the remaining value and assigns it to the user's account.
-   * @param conn a connection object to the database
-   * @param userId the ID of the user who the voucher will be used for.
+   * Uses a voucher, if available, to reduce the total price of the cart for the
+   * user.
+   * It first checks if the user has any unused vouchers and asks the user to use
+   * it or not.
+   * If the user chooses to use the voucher, it marks the voucher as used in the
+   * database and reduces the voucher value from the total price of the cart.
+   * If the total price is less than the voucher, it generates a new voucher with
+   * the remaining value and assigns it to the user's account.
+   * 
+   * @param conn       a connection object to the database
+   * @param userId     the ID of the user who the voucher will be used for.
    * @param totalPrice the total price of the cart before applying any vouchers
-   * @return a message indicating whether a voucher was applied or not, and if a new voucher was generated, it also includes the value of the new voucher and its code
+   * @return a message indicating whether a voucher was applied or not, and if a
+   *         new voucher was generated, it also includes the value of the new
+   *         voucher and its code
    * @throws Exception if there is an error in executing the query
    */
   String useVoucher(Connection conn, int userId, float totalPrice) throws Exception {
@@ -276,7 +297,9 @@ public class loggedinUser {
   }
 
   /**
-   * Updates the amount of items stored in the database based from the amount of items the user has taken from the cart.
+   * Updates the amount of items stored in the database based from the amount of
+   * items the user has taken from the cart.
+   * 
    * @param conn a Connection object to the database
    * @throws Exception if there is an error in executing the query
    */

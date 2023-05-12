@@ -1,7 +1,8 @@
 package toffeeSystem;
 
 /**
- * The `Voucher` class represents a voucher that can be used to discount a purchase.
+ * The `Voucher` class represents a voucher that can be used to discount a
+ * purchase.
  */
 public class Voucher {
     private String code;
@@ -11,7 +12,7 @@ public class Voucher {
     /**
      * Constructs a new voucher object with the specified code and price.
      *
-     * @param code the code of the voucher
+     * @param code  the code of the voucher
      * @param price the amount of the voucher
      */
     public Voucher(String code, double price) {
@@ -25,7 +26,7 @@ public class Voucher {
      *
      * @return the code of the voucher
      */
-    public String getCode(){
+    public String getCode() {
         return code;
     }
 

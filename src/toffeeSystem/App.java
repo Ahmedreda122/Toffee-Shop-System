@@ -1,17 +1,24 @@
 package toffeeSystem;
 
 import java.util.Scanner;
+
 /**
- * The `App` class is the main class of the application. It contains the main method, which is the entry point of the program.
+ * The `App` class is the main class of the application. It contains the main
+ * method, which is the entry point of the program.
  */
 public class App {
   /**
    * Constructs an App object with no parameters.
    */
-  public App(){}
+  public App() {
+  }
+
   /**
-   * This is the main class for the application. It contains the main method that is executed when the program is run.
-   * @param args an array of command-line arguments that can be passed to the application
+   * This is the main class for the application. It contains the main method that
+   * is executed when the program is run.
+   * 
+   * @param args an array of command-line arguments that can be passed to the
+   *             application
    * @throws Exception if an error occurs during the execution of the program
    */
   public static void main(String[] args) throws Exception {
@@ -97,7 +104,7 @@ public class App {
           phoneNumber = in.nextLine();
           if (v.checkPhoneNumber(phoneNumber))
             break;
-           else {
+          else {
             System.out.print(
                 "\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
           }
@@ -111,7 +118,7 @@ public class App {
           password = in.nextLine();
           if (v.checkPassWord(password))
             break;
-           else {
+          else {
             System.out.print(
                 "\t\t**** Please, Enter a stronger password,\nStart with a mix of letters and numbers(at least 5) then symbols(at least 2)****\n");
           }
@@ -199,7 +206,7 @@ public class App {
           float amountA = 0;
           if (!logUser.cart.containsKey(itemID))
             amountA = logUser.isExist(itemID);
-           else
+          else
             amountA = logUser.reminderAmount.get(itemID);
 
           // To Reinput(amount) if is wrong
@@ -208,8 +215,9 @@ public class App {
             System.out.print("\n<<< Please, Enter The amount of this item: \n>>>");
             float amount = Float.parseFloat(in.nextLine());
             if (amountA < amount)
-              System.out.print("\t\t**** This Amount is Not Available But The Available amount is " + amountA + " ***\n");
-             else {
+              System.out
+                  .print("\t\t**** This Amount is Not Available But The Available amount is " + amountA + " ***\n");
+            else {
               // Add this Item to the cart.
               if (!logUser.cart.containsKey(itemID)) {
                 logUser.cart.put(itemID, amount);
@@ -240,7 +248,7 @@ public class App {
             String _choice = in.nextLine();
             if (_choice.equals("1"))
               break;
-             else if (_choice.equals("2")) {
+            else if (_choice.equals("2")) {
               willAdd = false;
               // logUser.clearCart2();
               // logUser.reminderAmount.clear();

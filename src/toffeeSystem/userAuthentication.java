@@ -16,34 +16,37 @@ public class userAuthentication {
     /**
      * Constructs a userAuthentication object with no parameters.
      */
-    public userAuthentication(){}
-//    public String passwordReader() {
-//
-//        Console console = System.console();
-//
-//        // Read the password from the console
-//        char[] passwordChars = console.readPassword("Enter password: ");
-//
-//        // Convert the password to a string
-//        String password = new String(passwordChars);
-//
-//        // Print '*' instead of the actual password characters
-//        for (int i = 0; i < password.length(); i++) {
-//            System.out.print("*");
-//        }
-//
-//        System.out.println();
-//        System.out.println("Password entered: " + password);
-//        return password;
-//    }
+    public userAuthentication() {
+    }
+    // public String passwordReader() {
+    //
+    // Console console = System.console();
+    //
+    // // Read the password from the console
+    // char[] passwordChars = console.readPassword("Enter password: ");
+    //
+    // // Convert the password to a string
+    // String password = new String(passwordChars);
+    //
+    // // Print '*' instead of the actual password characters
+    // for (int i = 0; i < password.length(); i++) {
+    // System.out.print("*");
+    // }
+    //
+    // System.out.println();
+    // System.out.println("Password entered: " + password);
+    // return password;
+    // }
 
     /**
-     * Verifies the login of a user by checking if their username and password match a record in the database.
+     * Verifies the login of a user by checking if their username and password match
+     * a record in the database.
      *
      * @param username the username of the user trying to login
      * @param password the password entered by the user trying to login
      * @return the ID of the user if the login is successful, or null if it fails
-     * @throws Exception if there is an error with the database connection or SQL statement
+     * @throws Exception if there is an error with the database connection or SQL
+     *                   statement
      */
     public String verifyLogin(String username, String password) throws Exception {
         Connection conn = null;
@@ -74,21 +77,24 @@ public class userAuthentication {
         }
         return id;
     }
+
     /**
      * Adds a new user to the database with the provided details.
      *
-     * @param userN the name of the new user
-     * @param email the email address of the new user
+     * @param userN    the name of the new user
+     * @param email    the email address of the new user
      * @param password the password of the new user
      * @param phoneNum the phone number of the new user
-     * @param address the address of the new user
-     * @param type the type of the new user (e.g. admin, customer)
-     * @throws Exception if there is an error with the database connection or SQL statement
+     * @param address  the address of the new user
+     * @param type     the type of the new user (e.g. admin, customer)
+     * @throws Exception if there is an error with the database connection or SQL
+     *                   statement
      */
     public void signUp(String userN, String email, String password, String phoneNum, String address, String type)
             throws Exception {
         Connection conn = null;
-        System.out.println("Done!\n" + userN + " " + email + " " + password + " " + phoneNum + " " + address + " " + type);
+        System.out.println(
+                "Done!\n" + userN + " " + email + " " + password + " " + phoneNum + " " + address + " " + type);
         try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -110,8 +116,10 @@ public class userAuthentication {
             }
         }
     }
+
     /**
      * Sends an email containing the OTP to the specified email address.
+     * 
      * @param email The email address of the recipient
      * @return The OTP that was generated and sent
      * @throws Exception If there was an error sending the email
@@ -175,6 +183,7 @@ public class userAuthentication {
 
     /**
      * Generates a random OTP of length 6 using digits 0-9.
+     * 
      * @return The randomly generated OTP
      */
     private static String generateOTP() {
