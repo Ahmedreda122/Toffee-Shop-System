@@ -75,24 +75,24 @@ public class Vaildate {
             String query = "SELECT * FROM persons";
             ResultSet set = stmt.executeQuery(query);
 
-            if (type.equals("username")) {
+            if (type.equals("username"))
                 index = 1;
-            } else if (type.equals("email")) {
+             else if (type.equals("email"))
                 index = 2;
-            }
+
             while (set.next()) {
-                if (set.getString(index).equals(data)) {
+                if (set.getString(index).equals(data))
                     return true;
-                }
+
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             // Close the connection when done
             try {
-                if (conn != null) {
+                if (conn != null)
                     conn.close();
-                }
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }

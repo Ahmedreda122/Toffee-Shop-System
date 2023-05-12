@@ -69,9 +69,9 @@ public class loggedinUser {
     } finally {
       // Close the connection when done
       try {
-        if (conn != null) {
+        if (conn != null)
           conn.close();
-        }
+
       } catch (SQLException e) {
         e.printStackTrace();
       }
@@ -106,19 +106,19 @@ public class loggedinUser {
           amount = Float.parseFloat(set.getString(4));
         }
       }
-      if (!isExist) {
+      if (!isExist)
         System.out.print("\t\t*** This item not found ***\n");
-        // return;
-      }
+
+
 
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       // Close the connection when done
       try {
-        if (conn != null) {
+        if (conn != null)
           conn.close();
-        }
+
       } catch (SQLException e) {
         e.printStackTrace();
       }
@@ -202,9 +202,9 @@ public class loggedinUser {
     } finally {
       // Close the connection when done
       try {
-        if (conn != null) {
+        if (conn != null)
           conn.close();
-        }
+
       } catch (SQLException e) {
         e.printStackTrace();
       }
@@ -286,9 +286,9 @@ public class loggedinUser {
             totalPrice = 0;
           }
           System.out.print("\n\t\t\t**** Voucher successfully applied. ****\n\n");
-        } else {
+        } else
           System.out.print("\n\t\t\t**** Voucher not applied. ****\n\n");
-        }
+
       }
     } catch (SQLException ex) {
       Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);

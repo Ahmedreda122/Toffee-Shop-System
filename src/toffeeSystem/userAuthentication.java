@@ -58,9 +58,9 @@ public class userAuthentication {
             String query = "SELECT * FROM persons";
             ResultSet set = stmt.executeQuery(query);
             while (set.next()) {
-                if (set.getString(1).equals(username) && set.getString(3).equals(password)) {
+                if (set.getString(1).equals(username) && set.getString(3).equals(password))
                     id = set.getString(6);
-                }
+
             }
 
         } catch (ClassNotFoundException ex) {
@@ -68,9 +68,9 @@ public class userAuthentication {
         } finally {
             // Close the connection when done
             try {
-                if (conn != null) {
+                if (conn != null)
                     conn.close();
-                }
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -108,9 +108,9 @@ public class userAuthentication {
         } finally {
             // Close the connection when done
             try {
-                if (conn != null) {
+                if (conn != null)
                     conn.close();
-                }
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }

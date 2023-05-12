@@ -60,19 +60,19 @@ public class App {
           System.out.print("\n<<< Enter your name: \n>>>");
           name = in.nextLine();
 
-          if (v.isUsed(name, "username")) {
+          if (v.isUsed(name, "username"))
             System.out.println("\t\t**** This Username is already Used, Try another one. ****\n");
-          } else {
+          else
             break;
-          }
+
         }
         while (true) {
           System.out.print("\n<<< Enter your email: \n>>>");
           email = in.nextLine();
           if (v.checkEmail(email)) {
-            if (v.isUsed(email, "email")) {
+            if (v.isUsed(email, "email"))
               System.out.println("\t\t**** This E-mail is already Used, Try another one. ****\n");
-            } else {
+             else {
               String actualOTP = authorize.sendOTP(email);
               System.out.print("<<< Please enter the OTP that was sent to your email:\n>>>");
               String inputOTP = in.nextLine();
@@ -87,27 +87,24 @@ public class App {
                     actualOTP = authorize.sendOTP(email);
                     System.out.print("\n<<< Please enter the OTP that was sent to your email:\n>>>");
                     inputOTP = in.nextLine();
-                  } else {
+                  } else
                     inputOTP = input;
-                  }
+
                 }
               }
               break;
             }
-          } else {
-            System.out.print(
-                "\t\t*** Try again.Please enter email like this form (chars&numbers + @ + gmail.com) Or maybe its used ***\n");
-          }
+          } else
+            System.out.print("\t\t*** Try again.Please enter email like this form (chars&numbers + @ + gmail.com) Or maybe its used ***\n");
+
         }
         while (true) {
           System.out.print("\n<<< Enter your number phone: \n>>>");
           phoneNumber = in.nextLine();
           if (v.checkPhoneNumber(phoneNumber))
             break;
-          else {
-            System.out.print(
-                "\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
-          }
+          else
+            System.out.print("\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
         }
         System.out.print("\n<<< Enter your Address: \n>>>");
         address = in.nextLine();
@@ -118,10 +115,9 @@ public class App {
           password = in.nextLine();
           if (v.checkPassWord(password))
             break;
-          else {
-            System.out.print(
-                "\t\t**** Please, Enter a stronger password,\nStart with a mix of letters and numbers(at least 5) then symbols(at least 2)****\n");
-          }
+          else
+            System.out.print("\t\t**** Please, Enter a stronger password,\nStart with a mix of letters and numbers(at least 5) then symbols(at least 2)****\n");
+
         }
         authorize.signUp(name, email, password, phoneNumber, address, type);
         Thread.sleep(5000);// to sleep console
@@ -293,7 +289,6 @@ public class App {
                 break;
               } else
                 System.out.print("\n\t\t**** Invalid input. Please Try Again. ****\n");
-
             }
           }
         } else {
