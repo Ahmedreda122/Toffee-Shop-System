@@ -1,11 +1,18 @@
 package toffeeSystem;
 
 import java.util.Scanner;
-
+/**
+ * The `App` class is the main class of the application. It contains the main method, which is the entry point of the program.
+ */
 public class App {
   /**
-   * @param args
-   * @throws Exception
+   * Constructs an App object with no parameters.
+   */
+  public App(){}
+  /**
+   * This is the main class for the application. It contains the main method that is executed when the program is run.
+   * @param args an array of command-line arguments that can be passed to the application
+   * @throws Exception if an error occurs during the execution of the program
    */
   public static void main(String[] args) throws Exception {
     Scanner in = new Scanner(System.in);

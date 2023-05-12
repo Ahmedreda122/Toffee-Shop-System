@@ -8,29 +8,43 @@ import java.util.logging.Logger;
 import java.sql.*;
 import java.io.Console;
 
-
+/**
+ * The `userAuthentication` class represents a system for authenticating users.
+ */
 public class userAuthentication {
 
-    public String passwordReader() {
+    /**
+     * Constructs a userAuthentication object with no parameters.
+     */
+    public userAuthentication(){}
+//    public String passwordReader() {
+//
+//        Console console = System.console();
+//
+//        // Read the password from the console
+//        char[] passwordChars = console.readPassword("Enter password: ");
+//
+//        // Convert the password to a string
+//        String password = new String(passwordChars);
+//
+//        // Print '*' instead of the actual password characters
+//        for (int i = 0; i < password.length(); i++) {
+//            System.out.print("*");
+//        }
+//
+//        System.out.println();
+//        System.out.println("Password entered: " + password);
+//        return password;
+//    }
 
-        Console console = System.console();
-
-        // Read the password from the console
-        char[] passwordChars = console.readPassword("Enter password: ");
-
-        // Convert the password to a string
-        String password = new String(passwordChars);
-
-        // Print '*' instead of the actual password characters
-        for (int i = 0; i < password.length(); i++) {
-            System.out.print("*");
-        }
-
-        System.out.println();
-        System.out.println("Password entered: " + password);
-        return password;
-    }
-
+    /**
+     * Verifies the login of a user by checking if their username and password match a record in the database.
+     *
+     * @param username the username of the user trying to login
+     * @param password the password entered by the user trying to login
+     * @return the ID of the user if the login is successful, or null if it fails
+     * @throws Exception if there is an error with the database connection or SQL statement
+     */
     public String verifyLogin(String username, String password) throws Exception {
         Connection conn = null;
         String id = null;
@@ -60,7 +74,17 @@ public class userAuthentication {
         }
         return id;
     }
-
+    /**
+     * Adds a new user to the database with the provided details.
+     *
+     * @param userN the name of the new user
+     * @param email the email address of the new user
+     * @param password the password of the new user
+     * @param phoneNum the phone number of the new user
+     * @param address the address of the new user
+     * @param type the type of the new user (e.g. admin, customer)
+     * @throws Exception if there is an error with the database connection or SQL statement
+     */
     public void signUp(String userN, String email, String password, String phoneNum, String address, String type)
             throws Exception {
         Connection conn = null;
@@ -86,7 +110,12 @@ public class userAuthentication {
             }
         }
     }
-
+    /**
+     * Sends an email containing the OTP to the specified email address.
+     * @param email The email address of the recipient
+     * @return The OTP that was generated and sent
+     * @throws Exception If there was an error sending the email
+     */
     public String sendOTP(String email) throws Exception {
         // Generate a random OTP
         String otp = generateOTP();
@@ -144,7 +173,10 @@ public class userAuthentication {
         return otp;
     }
 
-    // Method to generate a random OTP
+    /**
+     * Generates a random OTP of length 6 using digits 0-9.
+     * @return The randomly generated OTP
+     */
     private static String generateOTP() {
         int otpLength = 6;
         String numbers = "0123456789";
