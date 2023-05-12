@@ -95,9 +95,9 @@ public class App {
         while (true) {
           System.out.print("\n<<< Enter your number phone: \n>>>");
           phoneNumber = in.nextLine();
-          if (v.checkPhoneNumber(phoneNumber)) {
+          if (v.checkPhoneNumber(phoneNumber))
             break;
-          } else {
+           else {
             System.out.print(
                 "\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
           }
@@ -109,9 +109,9 @@ public class App {
         while (true) {
           System.out.print("\n<<< Enter your Password: \n>>>");
           password = in.nextLine();
-          if (v.checkPassWord(password)) {
+          if (v.checkPassWord(password))
             break;
-          } else {
+           else {
             System.out.print(
                 "\t\t**** Please, Enter a stronger password,\nStart with a mix of letters and numbers(at least 5) then symbols(at least 2)****\n");
           }
@@ -197,22 +197,19 @@ public class App {
 
           // This take item that not taken previously
           float amountA = 0;
-          if (!logUser.cart.containsKey(itemID)) {
+          if (!logUser.cart.containsKey(itemID))
             amountA = logUser.isExist(itemID);
-          } else {
+           else
             amountA = logUser.reminderAmount.get(itemID);
-          }
+
           // To Reinput(amount) if is wrong
           // **this while for enter the amount
           while (true) {
             System.out.print("\n<<< Please, Enter The amount of this item: \n>>>");
             float amount = Float.parseFloat(in.nextLine());
-            if (amountA < amount) {
-              System.out
-                  .print("\t\t**** This Amount is Not Available But The Available amount is " + amountA
-                      + " ***\n");
-              continue;
-            } else {
+            if (amountA < amount)
+              System.out.print("\t\t**** This Amount is Not Available But The Available amount is " + amountA + " ***\n");
+             else {
               // Add this Item to the cart.
               if (!logUser.cart.containsKey(itemID)) {
                 logUser.cart.put(itemID, amount);
@@ -241,20 +238,20 @@ public class App {
           while (true) {
             System.out.print("\n<== If you want to add another item click (1) else click (2)?\n");
             String _choice = in.nextLine();
-            if (_choice.equals("1")) {
+            if (_choice.equals("1"))
               break;
-            } else if (_choice.equals("2")) {
+             else if (_choice.equals("2")) {
               willAdd = false;
               // logUser.clearCart2();
               // logUser.reminderAmount.clear();
               break;
-            } else {
+            } else
               System.out.print("\t\t*** Invalid Input This item not Exist. Please Try Again ***\n");
-            }
+
           }
-          if (!willAdd) {
+          if (!willAdd)
             break;
-          }
+
         }
         Thread.sleep(1000);
         System.out.print("\033[H\033[2J");// to clean console
@@ -286,9 +283,9 @@ public class App {
                 System.out.print("\n\t\t**** The order will be delivered to the new address you provided => "
                     + newAddress + " ****\n\n");
                 break;
-              } else {
+              } else
                 System.out.print("\n\t\t**** Invalid input. Please Try Again. ****\n");
-              }
+
             }
           }
         } else {
@@ -299,11 +296,11 @@ public class App {
         Thread.sleep(2000);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
-      } else if (choiceI.equals("6")) {
+      } else if (choiceI.equals("6"))
         break;
-      } else {
+      else
         System.out.print("\t\t*** Invalid input. Please Try Again ***\n");
-      }
+
     }
     in.close();
   }

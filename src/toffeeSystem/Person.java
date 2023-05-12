@@ -9,7 +9,7 @@ public class Person {
     private String phoneNumber;
     private String address;
     private String type;
-    private int id;
+    private int ID;
     /**
      * Constructs a Person object with no parameters.
      */
@@ -70,8 +70,8 @@ public class Person {
      * Returns the ID of the person.
      * @return the ID of the person
      */
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
     /**
