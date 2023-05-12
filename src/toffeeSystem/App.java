@@ -137,7 +137,7 @@ public class App {
           isLoggedIn = true;
         } else {
           System.out.print("\n\t\t**** This data not in system. Please Try Again ****\n");
-          System.out.print("\n<<<Press Enter to back to Home page : \n>>>");
+          System.out.print("\n<<<Press Enter to back to Home pages:\n>>>");
           in.nextLine();
         }
         Thread.sleep(2000);// to sleep console
@@ -147,9 +147,8 @@ public class App {
       // Option 3
       else if (choiceI.equals("3")) {
         logUser.displayItems();
-        System.out.print("<<<Press Enter to back to Home page : \n>>>");
+        System.out.print("<<<Press Enter to back to Home page:\n>>>");
         in.nextLine();
-        Thread.sleep(2000);
         System.out.print("\033[H\033[2J");// to clean console
         System.out.flush();// to clean console
       }
@@ -172,10 +171,9 @@ public class App {
             isLoggedIn = true;
           } else {
             System.out.print("\n\t\t**** This data not in system. Please Try Again ****\n");
-            System.out.print("\n<<<Press Enter to back to Home page : \n>>>");
+            System.out.print("\n<<<Press Enter to back to Home page: \n>>>");
             in.nextLine();
             // in.close();
-            Thread.sleep(2000);// to sleep console
             System.out.print("\033[H\033[2J");// to clean console
             System.out.flush();// to clean console
             continue;
