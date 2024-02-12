@@ -2,7 +2,6 @@ package toffeeSystem;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.sql.*;
 
@@ -77,7 +76,7 @@ public class Vaildate {
 
             if (type.equals("username"))
                 index = 1;
-             else if (type.equals("email"))
+            else if (type.equals("email"))
                 index = 2;
 
             while (set.next()) {

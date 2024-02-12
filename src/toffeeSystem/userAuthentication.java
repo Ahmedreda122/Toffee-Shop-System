@@ -6,7 +6,6 @@ import javax.mail.internet.*;//
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
-import java.io.Console;
 
 /**
  * The `userAuthentication` class represents a system for authenticating users.
@@ -18,25 +17,6 @@ public class userAuthentication {
      */
     public userAuthentication() {
     }
-    // public String passwordReader() {
-    //
-    // Console console = System.console();
-    //
-    // // Read the password from the console
-    // char[] passwordChars = console.readPassword("Enter password: ");
-    //
-    // // Convert the password to a string
-    // String password = new String(passwordChars);
-    //
-    // // Print '*' instead of the actual password characters
-    // for (int i = 0; i < password.length(); i++) {
-    // System.out.print("*");
-    // }
-    //
-    // System.out.println();
-    // System.out.println("Password entered: " + password);
-    // return password;
-    // }
 
     /**
      * Verifies the login of a user by checking if their username and password match

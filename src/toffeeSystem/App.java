@@ -72,7 +72,7 @@ public class App {
           if (v.checkEmail(email)) {
             if (v.isUsed(email, "email"))
               System.out.println("\t\t**** This E-mail is already Used, Try another one. ****\n");
-             else {
+            else {
               String actualOTP = authorize.sendOTP(email);
               System.out.print("<<< Please enter the OTP that was sent to your email:\n>>>");
               String inputOTP = in.nextLine();
@@ -95,7 +95,8 @@ public class App {
               break;
             }
           } else
-            System.out.print("\t\t*** Try again.Please enter email like this form (chars&numbers + @ + gmail.com) Or maybe its used ***\n");
+            System.out.print(
+                "\t\t*** Try again.Please enter email like this form (chars&numbers + @ + gmail.com) Or maybe its used ***\n");
 
         }
         while (true) {
@@ -104,7 +105,8 @@ public class App {
           if (v.checkPhoneNumber(phoneNumber))
             break;
           else
-            System.out.print("\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
+            System.out.print(
+                "\t\t**** Please enter the mobile number formats for Egyptian mobile numbers or maybe its used****\n");
         }
         System.out.print("\n<<< Enter your Address: \n>>>");
         address = in.nextLine();
@@ -116,7 +118,8 @@ public class App {
           if (v.checkPassWord(password))
             break;
           else
-            System.out.print("\t\t**** Please, Enter a stronger password,\nStart with a mix of letters and numbers(at least 5) then symbols(at least 2)****\n");
+            System.out.print(
+                "\t\t**** Please, Enter a stronger password,\nStart with a mix of letters and numbers(at least 5) then symbols(at least 2)****\n");
 
         }
         authorize.signUp(name, email, password, phoneNumber, address, type);
@@ -142,7 +145,6 @@ public class App {
         userId = authorize.verifyLogin(name, password);
         if (userId != null) {
           logUser.cart.clear();
-          logUser.clearCart2();
           System.out.println("\n\t\t**** Welcome, " + name + " In Toffee-Store ****\n");
           isLoggedIn = true;
         } else {
@@ -177,7 +179,6 @@ public class App {
             System.out.print("\n\n\t\t**** Welcome, " + name + " In Toffee-Store ****\n");
             logUser.cart.clear();
             logUser.reminderAmount.clear();
-            logUser.clearCart2();
             isLoggedIn = true;
           } else {
             System.out.print("\n\t\t**** This data not in system. Please Try Again ****\n");
@@ -246,8 +247,6 @@ public class App {
               break;
             else if (_choice.equals("2")) {
               willAdd = false;
-              // logUser.clearCart2();
-              // logUser.reminderAmount.clear();
               break;
             } else
               System.out.print("\t\t*** Invalid Input This item not Exist. Please Try Again ***\n");

@@ -5,7 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.sql.*;
-import toffeeSystem.*;
 import java.util.Vector;
 
 import java.sql.PreparedStatement;
@@ -16,10 +15,6 @@ import java.sql.SQLException;
  * system.
  */
 public class loggedinUser {
-  /**
-   * A vector to store the items chosen by the user.
-   */
-  private Vector<String> cart2 = new Vector<String>();
   /**
    * A Map that represents a shopping cart that stores the ID of each item and the
    * amount the user wants to checkout.
@@ -101,15 +96,12 @@ public class loggedinUser {
       boolean isExist = false;
       while (set.next()) {
         if (itemId.equals(set.getString(1))) {
-          cart2.add(itemId);
           isExist = true;
           amount = Float.parseFloat(set.getString(4));
         }
       }
       if (!isExist)
         System.out.print("\t\t*** This item not found ***\n");
-
-
 
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,10 +115,6 @@ public class loggedinUser {
         e.printStackTrace();
       }
     }
-    // System.out.print("\n");
-    // for (String s : cart2) {
-    // System.out.print(s + " ");
-    // }
     return amount;
   }
 
@@ -146,7 +134,6 @@ public class loggedinUser {
   public void makeOrder(String userID) throws Exception {
     Connection conn = null;
     int orderID = -1;
-    PreparedStatement statement = null;
     try {
       Class.forName("org.sqlite.JDBC");
       conn = DriverManager.getConnection("jdbc:sqlite:test.db");
@@ -209,13 +196,6 @@ public class loggedinUser {
         e.printStackTrace();
       }
     }
-  }
-
-  /**
-   * Clears the cart of all items in it.
-   */
-  void clearCart2() {
-    cart2.clear();
   }
 
   /**
@@ -328,31 +308,3 @@ public class loggedinUser {
     }
   }
 }
-
-// public void addItem(String itemID, float amount) throws Exception {
-// // Connection conn = null;
-// // try {
-// // Class.forName("org.sqlite.JDBC");
-// // conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-// // Statement stmt = conn.createStatement();
-// // int itemId = Integer.parseInt(itemID);
-// // String query3 = "INSERT INTO OrderContains Values(" + orderID + "," +
-// itemId
-// // + "," + amount + ")";
-// // stmt.executeUpdate(query3);
-// // System.out.println("Item number:" + itemId + "has added to your order
-// number
-// // " + orderID);
-// // } catch (ClassNotFoundException ex) {
-// // Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-// // } finally {
-// // // Close the connection when done
-// // try {
-// // if (conn != null) {
-// // conn.close();
-// // }
-// // } catch (SQLException e) {
-// // e.printStackTrace();
-// // }
-// // }
-// }
